@@ -44,6 +44,72 @@ public class HomeController : Controller
     {
         return View();
     }
+      
+
+
+    public IActionResult Error404()
+     {
+        return View();
+        
+     }
+
+
+
+
+    public IActionResult AboutUs()
+    {
+        return View();
+    }
+
+
+    public ActionResult Faq()
+    {
+        return View();
+
+    }
+
+    public IActionResult Features()
+    {
+        return View();
+    }
+
+
+    public IActionResult Guide()
+    {
+        return View();
+    }
+
+    public IActionResult News()
+    {
+
+        return View();
+    }
+
+    public IActionResult Ourteam()
+    {
+
+        return View();
+    }
+
+
+    public IActionResult Price() {
+
+        return View();
+    }
+
+
+    public IActionResult Service()
+    {
+        return View();
+    }
+
+    public IActionResult NewsPage()
+    {
+        return View();
+    }
+
+
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
