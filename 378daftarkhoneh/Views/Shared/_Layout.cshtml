@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>قالب شرکتی تارا</title>
+    <title>  دفترخانه 378 تهران </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="content-language" content="fa">
     <meta name="document-type" content="Public">
@@ -38,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-sm-5 d-lg-block d-none">
-                    <a href="#"><img src="~/assets/Images/logo2.png" class="img-fluid"></a>
+                    <a asp-controller="Home" asp-action="Index"><img src="~/assets/Images/logo2.png" class="img-fluid"></a>
                 </div>
 
                 <div class="col-lg-3 col-6 mr-auto">
@@ -72,12 +72,12 @@
                 <div class="extension-nav">
                     <ul class="pt-2">
                         <li>
-                            <a id="loginbtn" href="Login.html" class="btn btn-link p-1 ml-2">
+                            <a id="loginbtn" asp-controller="Home" asp-action="Register" class="btn btn-link p-1 ml-2">
                                 <img src="~/assets/Images/Svg/login.svg"><span class="mr-1">ورود</span>
                             </a>
                         </li>
                         <li>
-                            <a id="loginbtn" href="Register.html" class="btn btn-link p-1 ml-2">
+                            <a id="loginbtn" asp-controller="Home" asp-action="Login" class="btn btn-link p-1 ml-2">
                                 <img src="~/assets/Images/Svg/user.svg"><span class="mr-1">ثبت نام</span>
                             </a>
                         </li>
@@ -94,21 +94,21 @@
 
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="sina-menu sina-menu-center">
-                        <li><a href="Index.html">صفحه اصلی</a></li>
+                        <li><a asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
 
-                        <li><a href="Gallery.html">گالری تصاویر</a></li>
-                        <li><a href="Ourteam.html">معرفی مدیران</a></li>
-                        <li><a href="News.html">اخبار و رویدادها</a></li>
-                        <li><a href="Faq.html">سوالات متداول</a></li>
+                        @* <li><a href="Gallery.html">گالری تصاویر</a></li> *@
+                        <li><a asp-controller="Home" asp-action="Ourteam">معرفی مدیران</a></li>
+                        <li><a asp-controller="Home" asp-action="News">اخبار و رویدادها</a></li>
+                        <li><a asp-controller="Home" asp-action="Faq">سوالات متداول</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">برگه ها<i class="fa  fa-chevron-down pr-2"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="News_Details.html">جزئیات اخبار</a></li>
+                                <li><a asp-controller="Home" asp-action="NewsPage">جزئیات اخبار</a></li>
                                 <li><a href="Component.html">المان ها</a></li>
-                                <li><a href="Features.html">ویژگی ها</a></li>
-                                <li><a href="Guide.html">راهنمای استفاده</a></li>
-                                <li><a href="Price.html">جدول تعرفه</a></li>
-                                <li><a href="404.html">صفحه 404</a></li>
+                                <li><a asp-controller="Home" asp-action="Privacy">ویژگی ها</a></li>
+                                <li><a asp-controller="Home" asp-action="Guide">راهنمای استفاده</a></li>
+                                <li><a asp-controller="Home" asp-action="Price">جدول تعرفه</a></li>
+                                <li><a asp-controller="Home" asp-action="Error404">صفحه 404</a></li>
 
                             </ul>
                         </li>
@@ -117,17 +117,17 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">سایر برگه ها<i class="fa  fa-chevron-down pr-2"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="Service.html">خدمات</a></li>
-                                <li><a href="Success.html">ثبت موفق</a></li>
-                                <li><a href="UnSuccess.html">ثبت ناموفق</a></li>
-                                <li><a href="Waiting.html">صفحه انتظار</a></li>
-                                <li><a href="Blank.html">صفحه خالی</a></li>
+                                <li><a asp-controller="Home" asp-action="Service">خدمات</a></li>
+                                @* <li><a href="Success.html">ثبت موفق</a></li> *@
+                                @* <li><a href="UnSuccess.html">ثبت ناموفق</a></li> *@
+                                @* <li><a href="Waiting.html">صفحه انتظار</a></li> *@
+                                @* <li><a href="Blank.html">صفحه خالی</a></li> *@
 
                             </ul>
                         </li>
 
-                        <li><a href="AboutUs.html">درباره ما</a></li>
-                        <li><a href="ContactUs.html">ارتباط با ما</a></li>
+                        <li><a asp-controller="Home" asp-action="Aboutus">درباره ما</a></li>
+                        <li><a asp-controller="Home" asp-action="Form">ارتباط با ما</a></li>
                     </ul>
 
                 </div>
