@@ -74,7 +74,7 @@
                                                 {
                                                     <span class="category">@post.Category</span>
                                                 }
-                                                <span class="date">@((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))</span>
+                                                <span class="date">@_378daftarkhoneh.Models.PersianDateHelper.ToPersianDate(post.PublishedAt ?? post.CreatedAt)</span>
                                             </div>
                                             <h4>
                                                 <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })">
@@ -128,7 +128,7 @@
                                                 }
                                                 <span class="blog-date">
                                                     <i class="fas fa-calendar-alt me-1"></i>
-                                                    @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                                    @_378daftarkhoneh.Models.PersianDateHelper.ToPersianDate(post.PublishedAt ?? post.CreatedAt)
                                                 </span>
                                             </div>
                                             
@@ -255,7 +255,7 @@
                                             </h6>
                                             <small class="text-muted">
                                                 <i class="fas fa-calendar-alt me-1"></i>
-                                                @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                                @_378daftarkhoneh.Models.PersianDateHelper.ToPersianDate(post.PublishedAt ?? post.CreatedAt)
                                             </small>
                                         </div>
                                     </div>

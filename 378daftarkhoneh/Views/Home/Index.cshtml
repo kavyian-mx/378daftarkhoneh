@@ -397,7 +397,7 @@
                                     }
                                     <span class="blog-date">
                                         <i class="fas fa-calendar-alt me-1"></i>
-                                        @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                        @_378daftarkhoneh.Models.PersianDateHelper.ToPersianDate(post.PublishedAt ?? post.CreatedAt)
                                     </span>
                                 </div>
                                 
