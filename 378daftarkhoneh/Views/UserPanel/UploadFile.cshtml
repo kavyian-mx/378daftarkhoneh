@@ -1,0 +1,264 @@
+@{
+    ViewData["Title"] = "آپلود فایل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="upload-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="upload-box">
+                    <div class="text-center mb-4">
+                        <div class="upload-icon mb-3">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h2>آپلود فایل جدید</h2>
+                        <p class="text-muted">مدارک خود را برای بررسی ارسال کنید</p>
+                    </div>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="title" class="form-label">عنوان فایل *</label>
+                                <input type="text" name="title" id="title" class="form-control" 
+                                       placeholder="عنوان مناسب برای فایل وارد کنید" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="categoryId" class="form-label">دسته‌بندی *</label>
+                                <select name="categoryId" id="categoryId" class="form-select" required>
+                                    <option value="">انتخاب کنید...</option>
+                                    @if (ViewBag.Categories != null)
+                                    {
+                                        @foreach (var category in (List<_378daftarkhoneh.Models.Category>)ViewBag.Categories)
+                                        {
+                                            <option value="@category.Id">@category.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="requestType" class="form-label">نوع درخواست</label>
+                            <select name="requestType" id="requestType" class="form-select">
+                                <option value="0">تنظیم سند</option>
+                                <option value="1">مشاوره</option>
+                                <option value="2">استعلام</option>
+                                <option value="3">گواهی</option>
+                                <option value="4">سایر</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label">توضیحات</label>
+                            <textarea name="description" id="description" class="form-control" rows="3" 
+                                      placeholder="توضیحات اضافی در مورد درخواست خود..."></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="file" class="form-label">انتخاب فایل *</label>
+                            <div class="file-upload-area" onclick="document.getElementById('file').click()">
+                                <div class="file-upload-content">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                                    <h5>فایل خود را انتخاب کنید</h5>
+                                    <p class="text-muted">یا فایل را اینجا رها کنید</p>
+                                    <small class="text-muted">حداکثر اندازه: ۱۰ مگابایت - فرمت‌های مجاز: PDF, DOC, DOCX, JPG, PNG</small>
+                                </div>
+                                <input type="file" name="file" id="file" class="d-none" 
+                                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+                            </div>
+                            <div id="fileInfo" class="file-info mt-2" style="display: none;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-file me-2"></i>
+                                    <span id="fileName"></span>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ms-auto" onclick="removeFile()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>راهنمایی:</strong> فایل شما پس از ارسال توسط کارشناسان دفترخانه بررسی شده و در اسرع وقت پاسخ داده خواهد شد.
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Dashboard")" class="btn btn-secondary btn-lg me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>
+                                بازگشت
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-upload me-2"></i>
+                                ارسال فایل
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .upload-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .upload-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .upload-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .file-upload-area {
+            border: 3px dashed #e0e0e0;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--secondary-color);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--secondary-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .file-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-weight: 600;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // File upload handling
+        const fileInput = document.getElementById('file');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const uploadArea = document.querySelector('.file-upload-area');
+
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileName.textContent = file.name + ' (' + formatFileSize(file.size) + ')';
+                fileInfo.style.display = 'block';
+                uploadArea.style.borderColor = 'var(--success-color)';
+                uploadArea.style.background = 'rgba(56, 161, 105, 0.1)';
+            }
+        });
+
+        function removeFile() {
+            fileInput.value = '';
+            fileInfo.style.display = 'none';
+            uploadArea.style.borderColor = '#e0e0e0';
+            uploadArea.style.background = '#f8f9fa';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
+} 

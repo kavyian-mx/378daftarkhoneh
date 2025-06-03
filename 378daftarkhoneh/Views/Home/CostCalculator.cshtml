@@ -1,0 +1,327 @@
+@{
+    ViewData["Title"] = "محاسبه هزینه تنظیم سند";
+}
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>محاسبه آنلاین هزینه تنظیم سند</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">صفحه اصلی</a></li>
+                        <li class="breadcrumb-item active">محاسبه هزینه</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Calculator Section -->
+<section class="calculator-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="calculator-box">
+                    <h3 class="mb-4 text-center">محاسبه‌گر هزینه خدمات دفترخانه</h3>
+                    
+                    <form id="costCalculatorForm">
+                        <div class="mb-4">
+                            <label class="form-label">نوع سند</label>
+                            <select class="form-select" id="documentType" required>
+                                <option value="">انتخاب کنید...</option>
+                                <option value="sale">خرید و فروش (مبایعه نامه)</option>
+                                <option value="rent">اجاره نامه</option>
+                                <option value="mortgage">رهن</option>
+                                <option value="attorney">وکالتنامه</option>
+                                <option value="commitment">تعهدنامه</option>
+                                <option value="confession">اقرارنامه</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4" id="priceSection" style="display: none;">
+                            <label class="form-label">مبلغ مورد معامله (تومان)</label>
+                            <input type="text" class="form-control" id="transactionAmount" placeholder="مثال: 1,000,000,000">
+                            <small class="text-muted">برای اسناد مالی، مبلغ معامله را وارد کنید</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">تعداد امضاکنندگان</label>
+                            <input type="number" class="form-control" id="signatories" min="1" value="۲" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="urgentService">
+                                <label class="form-check-label" for="urgentService">
+                                    خدمات فوری (۵۰% اضافه هزینه)
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-lg w-100" onclick="calculateCost()">
+                            <i class="fas fa-calculator me-2"></i>
+                            محاسبه هزینه
+                        </button>
+                    </form>
+
+                    <!-- Result Section -->
+                    <div id="resultSection" class="result-box mt-5" style="display: none;">
+                        <h4 class="text-center mb-4">نتیجه محاسبات</h4>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>حق‌التحریر دفترخانه:</td>
+                                    <td><strong id="notaryFee">0</strong> تومان</td>
+                                </tr>
+                                <tr>
+                                    <td>حق‌الثبت:</td>
+                                    <td><strong id="registrationFee">0</strong> تومان</td>
+                                </tr>
+                                <tr>
+                                    <td>مالیات:</td>
+                                    <td><strong id="taxFee">0</strong> تومان</td>
+                                </tr>
+                                <tr>
+                                    <td>سایر هزینه‌ها:</td>
+                                    <td><strong id="otherFees">0</strong> تومان</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td><strong>جمع کل:</strong></td>
+                                    <td><strong id="totalCost">0</strong> تومان</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i>
+                            این محاسبات تقریبی است و ممکن است بر اساس شرایط خاص هر پرونده تغییر کند. برای مشاوره دقیق با دفترخانه 378 تماس بگیرید.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="row mt-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="info-cards">
+                    <h3 class="text-center mb-4">نکات مهم</h3>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="info-card">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                <h5>تعرفه قانونی</h5>
+                                <p>تمامی هزینه‌ها بر اساس تعرفه قانونی سال ۱۴۰۳ محاسبه می‌شود.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-card">
+                                <i class="fas fa-shield-alt"></i>
+                                <h5>شفافیت کامل</h5>
+                                <p>تمامی هزینه‌ها به صورت شفاف و بدون هزینه پنهان محاسبه می‌شود.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="info-card">
+                                <i class="fas fa-phone-alt"></i>
+                                <h5>مشاوره رایگان</h5>
+                                <p>برای دریافت مشاوره دقیق‌تر با کارشناسان دفترخانه ۳۷۸ تماس بگیرید: ۰۲۱-۲۲۷۰۹۱۳۸</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 50px;
+        }
+
+        .calculator-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.1);
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .info-cards {
+            margin-top: 50px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .info-card i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .info-card h5 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .info-card p {
+            color: #666;
+            margin: 0;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Show/hide price section based on document type
+        document.getElementById('documentType').addEventListener('change', function() {
+            const priceSection = document.getElementById('priceSection');
+            const financialDocs = ['sale', 'rent', 'mortgage'];
+            
+            if (financialDocs.includes(this.value)) {
+                priceSection.style.display = 'block';
+            } else {
+                priceSection.style.display = 'none';
+            }
+        });
+
+        // Format number with commas
+        document.getElementById('transactionAmount').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/,/g, '');
+            if (!isNaN(value) && value !== '') {
+                e.target.value = numberWithCommas(value);
+            }
+        });
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // تابع تبدیل اعداد انگلیسی به فارسی
+        function toPersianNumbers(num) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return num.toString().replace(/\d/g, function(digit) {
+                return persianDigits[parseInt(digit)];
+            });
+        }
+
+        function numberWithCommaPersian(x) {
+            const withCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return toPersianNumbers(withCommas);
+        }
+
+        function calculateCost() {
+            const documentType = document.getElementById('documentType').value;
+            const transactionAmount = parseInt(document.getElementById('transactionAmount').value.replace(/,/g, '')) || 0;
+            const signatories = parseInt(document.getElementById('signatories').value) || 1;
+            const isUrgent = document.getElementById('urgentService').checked;
+
+            if (!documentType) {
+                alert('لطفا نوع سند را انتخاب کنید');
+                return;
+            }
+
+            let notaryFee = 0;
+            let registrationFee = 0;
+            let taxFee = 0;
+            let otherFees = 50000; // Base fee
+
+            // Calculate based on document type
+            switch(documentType) {
+                case 'sale':
+                    notaryFee = Math.max(transactionAmount * 0.003, 500000);
+                    registrationFee = transactionAmount * 0.005;
+                    taxFee = transactionAmount * 0.01;
+                    break;
+                case 'rent':
+                    notaryFee = Math.max(transactionAmount * 0.002, 300000);
+                    registrationFee = transactionAmount * 0.003;
+                    taxFee = transactionAmount * 0.005;
+                    break;
+                case 'mortgage':
+                    notaryFee = Math.max(transactionAmount * 0.0025, 400000);
+                    registrationFee = transactionAmount * 0.004;
+                    taxFee = transactionAmount * 0.008;
+                    break;
+                case 'attorney':
+                    notaryFee = 500000;
+                    registrationFee = 200000;
+                    taxFee = 100000;
+                    break;
+                case 'commitment':
+                case 'confession':
+                    notaryFee = 300000;
+                    registrationFee = 150000;
+                    taxFee = 50000;
+                    break;
+            }
+
+            // Add extra for signatories
+            notaryFee += (signatories - 2) * 50000;
+
+            // Apply urgent service fee
+            if (isUrgent) {
+                notaryFee *= 1.5;
+            }
+
+            const totalCost = notaryFee + registrationFee + taxFee + otherFees;
+
+            // Display results
+            document.getElementById('notaryFee').textContent = numberWithCommaPersian(Math.round(notaryFee));
+            document.getElementById('registrationFee').textContent = numberWithCommaPersian(Math.round(registrationFee));
+            document.getElementById('taxFee').textContent = numberWithCommaPersian(Math.round(taxFee));
+            document.getElementById('otherFees').textContent = numberWithCommaPersian(Math.round(otherFees));
+            document.getElementById('totalCost').textContent = numberWithCommaPersian(Math.round(totalCost));
+
+            document.getElementById('resultSection').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+} 

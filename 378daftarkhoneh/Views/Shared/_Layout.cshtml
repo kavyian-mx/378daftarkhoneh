@@ -1,250 +1,732 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 
 <head>
-    <title>  دفترخانه 378 تهران </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="content-language" content="fa">
-    <meta name="document-type" content="Public">
-    <meta name="document-rating" content="General">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Ofoghata">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - دفترخانه اسناد رسمی 378</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Yekan+Bakh:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #4299e1;
+            --success-color: #38a169;
+            --danger-color: #e53e3e;
+            --warning-color: #dd6b20;
+            --info-color: #3182ce;
+            --light-color: #f7fafc;
+            --dark-color: #2d3748;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
 
-    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/css/bootstrap-rtl.min.css" rel="stylesheet" />
-    <link href="~/assets/css/animate.css" rel="stylesheet" />
-    <link href="~/assets/css/Style.css" rel="stylesheet" />
-    <link href="~/assets/css/owl-carousel/owl.carousel.min.css" rel="stylesheet" />
-    <link href="~/assets/css/sina-nav.min.css" rel="stylesheet" />
+        * {
+            font-family: 'Vazir', sans-serif;
+        }
 
+        body {
+            background-color: #f8f9fa;
+            padding-top: 100px;
+        }
 
-    <!-- Font Awesome CDN -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+        /* Header Styles */
+        .top-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+        }
 
+        .top-header i {
+            margin-left: 5px;
+        }
 
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
 
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
 
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        .navbar-nav .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            padding: 10px 15px !important;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 2px;
+        }
 
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link i {
+            font-size: 0.9rem;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            right: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: all 0.3s ease;
+            transform: translateX(50%);
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 60%;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            padding: 15px 5px;
+            margin-top: 10px;
+            background: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            margin: 2px 0;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item i {
+            font-size: 0.9rem;
+            width: 20px;
+        }
+
+        .dropdown-header {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 20px;
+            margin-bottom: 5px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 6px;
+        }
+
+        .dropdown-divider {
+            margin: 10px 15px;
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer h5 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-right: 10px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Utility Classes */
+        .btn-custom {
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Animations */
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Logo Styles */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @@keyframes shine {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .logo-icon i {
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(240, 147, 251, 0.4);
+        }
+
+        /* Auth Button Styles */
+        .navbar-auth {
+            margin-right: 15px;
+        }
+
+        .auth-btn {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .auth-dropdown {
+            min-width: 280px;
+            margin-top: 15px;
+        }
+
+        .auth-dropdown .dropdown-header {
+            background: var(--gradient-primary);
+            color: white;
+            margin: -5px -5px 10px -5px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 991.98px) {
+            .navbar-nav {
+                margin-top: 20px;
+                padding: 20px 0;
+                background: rgba(255,255,255,0.95);
+                border-radius: 15px;
+                margin: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .navbar-nav .nav-link {
+                margin: 5px 15px;
+                text-align: center;
+            }
+
+            .navbar-auth {
+                margin: 20px 15px 0 15px;
+            }
+
+            .auth-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dropdown-menu {
+                position: static !important;
+                transform: none !important;
+                width: 100%;
+                box-shadow: none;
+                background: #f8f9fa;
+                margin-top: 10px;
+                border-radius: 10px;
+            }
+
+            .auth-dropdown {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        /* Navbar Toggler */
+        .navbar-toggler {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2852, 152, 219, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Hover Dropdown */
+        .navbar .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+            animation: fadeInDown 0.3s ease-in-out;
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Auth dropdown remains click-based */
+        .navbar-auth .dropdown-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            display: none;
+        }
+
+        .navbar-auth .dropdown-menu.show {
+            display: block;
+        }
+
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 
-<body id="home" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-
-    <section id="tophead" class="container-fluid p-2 grad-bg">
+<body>
+    <!-- Top Header -->
+    <div class="top-header fixed-top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-sm-5 d-lg-block d-none">
-                    <a asp-controller="Home" asp-action="Index"><img src="~/assets/Images/logo2.png" class="img-fluid"></a>
+                <div class="col-md-6">
+                    <span><i class="fas fa-phone"></i>۰۲۱-۲۲۷۰۹۱۳۸ | ۰۹۱۲۱۸۵۲۴۵۸</span>
                 </div>
-
-                <div class="col-lg-3 col-6 mr-auto">
-                    <div class="d-flex flex-column">
-                        <span class="text-white">
-                            امروز یـکشنبه 22 ارديبهشت 1401
-                        </span>
-                        <form class="d-sm-block d-none">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="جستجو .." onfocus="this.placeholder = ''" onblur="this.placeholder = 'جستجو ..'">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-1 col-6  text-left">
-                    <img src="~/assets/Images/flag.png" class="pt-sm-4 flag img-fluid">
+                <div class="col-md-6 text-start">
+                    <span><i class="fas fa-map-marker-alt"></i>تهران، ولیعصر، نرسیده به تجریش</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <header class="nav-container">
-        <nav class="sina-nav mobile-sidebar navbar-fixed" data-top="60">
-            <div class="container">
-
-                <div class="extension-nav">
-                    <ul class="pt-2">
-                        <li>
-                            <a id="loginbtn" asp-controller="Home" asp-action="Register" class="btn btn-link p-1 ml-2">
-                                <img src="~/assets/Images/Svg/login.svg"><span class="mr-1">ورود</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a id="loginbtn" asp-controller="Home" asp-action="Login" class="btn btn-link p-1 ml-2">
-                                <img src="~/assets/Images/Svg/user.svg"><span class="mr-1">ثبت نام</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sina-nav-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="sina-brand pl-4 d-lg-none d-block" href="Index.html">
-                        <img src="~/assets/Images/logo.png" class="img-fluid">
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="navbar-menu">
-                    <ul class="sina-menu sina-menu-center">
-                        <li><a asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-
-                        @* <li><a href="Gallery.html">گالری تصاویر</a></li> *@
-                        <li><a asp-controller="Home" asp-action="Ourteam">معرفی مدیران</a></li>
-                        <li><a asp-controller="Home" asp-action="News">اخبار و رویدادها</a></li>
-                        <li><a asp-controller="Home" asp-action="Faq">سوالات متداول</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">برگه ها<i class="fa  fa-chevron-down pr-2"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a asp-controller="Home" asp-action="NewsPage">جزئیات اخبار</a></li>
-                                <li><a href="Component.html">المان ها</a></li>
-                                <li><a asp-controller="Home" asp-action="Privacy">ویژگی ها</a></li>
-                                <li><a asp-controller="Home" asp-action="Guide">راهنمای استفاده</a></li>
-                                <li><a asp-controller="Home" asp-action="Price">جدول تعرفه</a></li>
-                                <li><a asp-controller="Home" asp-action="Error404">صفحه 404</a></li>
-
-                            </ul>
-                        </li>
-
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">سایر برگه ها<i class="fa  fa-chevron-down pr-2"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a asp-controller="Home" asp-action="Service">خدمات</a></li>
-                                @* <li><a href="Success.html">ثبت موفق</a></li> *@
-                                @* <li><a href="UnSuccess.html">ثبت ناموفق</a></li> *@
-                                @* <li><a href="Waiting.html">صفحه انتظار</a></li> *@
-                                @* <li><a href="Blank.html">صفحه خالی</a></li> *@
-
-                            </ul>
-                        </li>
-
-                        <li><a asp-controller="Home" asp-action="Aboutus">درباره ما</a></li>
-                        <li><a asp-controller="Home" asp-action="Form">ارتباط با ما</a></li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    @RenderBody()
-
-
-    <footer class="rel-footer">
-        <div id="footer-content">
-            <div class="container">
-                <div class="row pt-4 mx-2">
-                    <div class="col-lg-4 col-sm-6 py-3 order-lg-1 order-1 pl-lg-2">
-                        <h5 class="IRANSansWeb_Medium">آخرین ارسالی ها : </h5>
-                        <ul>
-                            <li>
-                                <a href="Ourteam.html" title="">
-                                    اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام
-                                    اقتصادی کشور است
-                                </a>
-                            </li>
-                            <li>
-                                <a href="News.html" title="">
-                                    رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز
-                                    تعویض پلاک خودرو
-                                </a>
-                            </li>
-                            <li>
-                                <a href="News_Details.html" title=""> افزایش حقوق معلمان چه زمانی واریز می شود؟ </a>
-                            </li>
-                            <li>
-                                <a href="Component.html" title="">فرصت دوباره برای فعال سازی مجدد پذیرنده های بانک</a>
-                            </li>
-
-                        </ul>
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-stamp"></i>
+                        <div class="logo-badge">۳۷۸</div>
                     </div>
-                    <div class="col-lg-2 col-sm-6 py-3 order-lg-1 order-1">
-                        <h5 class="IRANSansWeb_Medium"> لینک های سریع : </h5>
-                        <ul>
-                            <li>
-                                <a href="Ourteam.html" title="">مدیران و معاونان</a>
-                            </li>
-                            <li>
-                                <a href="News.html" title="">اخبار و رویدادها</a>
-                            </li>
-                            <li>
-                                <a href="News_Details.html" title="">جزئیات اخبار </a>
-                            </li>
-                            <li>
-                                <a href="Component.html" title="">المان ها</a>
-                            </li>
-                            <li>
-                                <a href="Features.html" title="">ویژگی ها </a>
-                            </li>
-                        </ul>
+                    <div class="logo-text">
+                        <h4 class="logo-title">دفترخانه ۳۷۸</h4>
+                        <small class="logo-subtitle">اسناد رسمی تهران</small>
                     </div>
-                    <div class="col-lg-2 col-sm-6 py-3 order-lg-2  order-3">
-                        <h5 class="IRANSansWeb_Medium">پیوندها : </h5>
-                        <ul>
-                            <li>
-                                <a href="Faq.html" title="">سوالات متداول</a>
-                            </li>
-
-                            <li>
-                                <a href="Login.html" title="">ورود</a>
-                            </li>
-                            <li>
-                                <a href="Register.html" title="">عضویت</a>
-                            </li>
-                            <li>
-                                <a href="AboutUs.html" title="">درباره ما</a>
-                            </li>
-                            <li>
-                                <a href="ContactUs.html" title="">تماس با ما </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 pr-lg-4 py-3 IRANSansWeb_FaNum  order-lg-3  order-2">
-                        <h5 class="IRANSansWeb_Medium"> ارتباط با ما : </h5>
-                        <p>
-                            <i class="fas fa-2x fa-map-marker-alt ml-2"></i>آدرس : شهرستان گنبدکاووس - خیابان آزادگان -
-                            میدان فراغی
-                        </p>
-                        <p><i class="fas fa-2x fa-phone ml-2"></i>تلفن : 01733224455</p>
-                        <p><i class="fas fa-2x fa-mobile-alt ml-2"></i>تلفن همراه : 09301234567</p>
-                        <p><i class="fas fa-2x fa-fax ml-2"></i>نمابر : 09301234567</p>
-                    </div>
-
-
                 </div>
-            </div>
-        </div>
-        <div id="footer-copyright">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="https://www.rtl-theme.com/author/shamim831/" class="text-white ">
-                            کلیه حقوق این قالب برای طراح محفوظ می باشد - عرضه شده تنها در راست چین .
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home me-1"></i>
+                            صفحه اصلی
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#">
+                            <i class="fas fa-cogs me-1"></i>
+                            خدمات
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Home/RealEstateDocuments">
+                                <i class="fas fa-building me-2"></i>اسناد املاک
+                            </a></li>
+                            <li><a class="dropdown-item" href="/Home/LegalDocuments">
+                                <i class="fas fa-balance-scale me-2"></i>اسناد حقوقی
+                            </a></li>
+                            <li><a class="dropdown-item" href="/Home/MarriageServices">
+                                <i class="fas fa-heart me-2"></i>خدمات ازدواج
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Home/Services">
+                                <i class="fas fa-list me-2"></i>همه خدمات
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#">
+                            <i class="fas fa-file-contract me-1"></i>
+                            اسناد تخصصی
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
+                                <i class="fas fa-key me-2"></i>اجاره
+                            </a></li>
+                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
+                                <i class="fas fa-handshake me-2"></i>بیع
+                            </a></li>
+                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
+                                <i class="fas fa-home me-2"></i>رهن
+                            </a></li>
+                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
+                                <i class="fas fa-user-tie me-2"></i>وکالت
+                            </a></li>
+                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
+                                <i class="fas fa-peace me-2"></i>صلح
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/CostCalculator">
+                            <i class="fas fa-calculator me-1"></i>
+                            محاسبه هزینه
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Documents">
+                            <i class="fas fa-download me-1"></i>
+                            دانلود فرم‌ها
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/AboutUs">
+                            <i class="fas fa-info-circle me-1"></i>
+                            درباره ما
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Contact">
+                            <i class="fas fa-phone me-1"></i>
+                            تماس با ما
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="navbar-auth">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle auth-btn" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-2"></i>
+                            ورود / ثبت نام
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end auth-dropdown">
+                            <li>
+                                <h6 class="dropdown-header">
+                                    <i class="fas fa-users me-2"></i>
+                                    پنل کاربران
+                                </h6>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/UserPanel/Login">
+                                    <i class="fas fa-sign-in-alt me-2"></i>
+                                    ورود کاربران
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/UserPanel/Register">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    ثبت نام
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <h6 class="dropdown-header">
+                                    <i class="fas fa-shield-alt me-2"></i>
+                                    پنل مدیریت
+                                </h6>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/Admin/Account/Login">
+                                    <i class="fas fa-user-shield me-2"></i>
+                                    ورود مدیران
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>درباره دفترخانه 378</h5>
+                    <p>
+                        دفتر اسناد رسمی 378 با سابقه طولانی در ارائه خدمات ثبتی و حقوقی، 
+                        آماده خدمت‌رسانی به شهروندان عزیز در تمامی امور مربوط به تنظیم اسناد رسمی می‌باشد.
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>دسترسی سریع</h5>
+                    <ul class="footer-links">
+                        <li><a href="/Home/Services">خدمات</a></li>
+                        <li><a href="/Home/CostCalculator">محاسبه هزینه</a></li>
+                        <li><a href="/Home/Documents">دانلود فرم‌ها</a></li>
+                        <li><a href="/Home/Contact">تماس با ما</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>اسناد پرکاربرد</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">سند اجاره</a></li>
+                        <li><a href="#">وکالتنامه</a></li>
+                        <li><a href="#">مبایعه‌نامه</a></li>
+                        <li><a href="#">اقرارنامه</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>اطلاعات تماس</h5>
+                    <p>
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        تهران، خیابان ولیعصر، نرسیده به میدان تجریش، جنب بانک توسعه صادرات، ساختمان ولیعصر، پلاک 3094، طبقه 1
+                    </p>
+                    <p>
+                        <i class="fas fa-phone me-2"></i>
+                        ۰۲۱-۲۲۷۰۹۱۳۸
+                    </p>
+                    <p>
+                        <i class="fas fa-mobile-alt me-2"></i>
+                        ۰۹۱۲۱۸۵۲۴۵۸
+                    </p>
+                    <p>
+                        <i class="fas fa-user me-2"></i>
+                        سردفتر: زهره محمدرضازاده
+                    </p>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3" style="border-color: rgba(255,255,255,0.1)">
+            <div class="text-center">
+                <p class="mb-0">
+                    © ۱۴۰۳ - تمامی حقوق برای دفترخانه اسناد رسمی ۳۷۸ محفوظ است
+                </p>
+            </div>
+        </div>
     </footer>
 
-
-    <script src="~/Assets/Js/jquery-2.0.0.min.js"></script>
-    <script src="~/Assets/Js/bootstrap.min.js"></script>
-    <script src="~/Assets/Js/owl.carousel.js"></script>
-    <script src="~/Assets/Js/custom.js"></script>
-    <script src="~/Assets/Js/sina-nav.min.js"></script>
-
-
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        // Mobile dropdown handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // For mobile devices, convert hover to click
+            const isMobile = window.innerWidth <= 991;
+            
+            if (isMobile) {
+                const dropdownToggles = document.querySelectorAll('.navbar-nav .dropdown > .nav-link');
+                dropdownToggles.forEach(toggle => {
+                    toggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const dropdown = this.nextElementSibling;
+                        if (dropdown) {
+                            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                        }
+                    });
+                });
+            }
+            
+            // Keep auth dropdown click-based always
+            const authDropdown = document.querySelector('.navbar-auth .dropdown-toggle');
+            if (authDropdown) {
+                authDropdown.setAttribute('data-bs-toggle', 'dropdown');
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 991) {
+                // Reset mobile dropdown styles
+                const dropdownMenus = document.querySelectorAll('.navbar-nav .dropdown-menu');
+                dropdownMenus.forEach(menu => {
+                    menu.style.display = '';
+                });
+            }
+        });
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

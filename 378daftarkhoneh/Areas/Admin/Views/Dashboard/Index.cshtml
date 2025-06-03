@@ -2,5 +2,139 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "داشبورد";
 }
-<p>Welcome to the Admin Dashboard!</p>
+
+<div class="row g-4">
+    <!-- آمار کلی -->
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <i class="fas fa-file-alt"></i>
+            <h3>@ViewBag.TotalFiles</h3>
+            <p>تعداد فایل‌ها</p>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <i class="fas fa-folder"></i>
+            <h3>@ViewBag.TotalCategories</h3>
+            <p>تعداد دسته‌بندی‌ها</p>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <i class="fas fa-users"></i>
+            <h3>@ViewBag.TotalUsers</h3>
+            <p>تعداد کاربران</p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <!-- دسترسی سریع -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="fas fa-clock me-2"></i>
+                    آخرین فایل‌های آپلود شده
+                </h5>
+                
+                @if (ViewBag.RecentFiles != null && ((List<_378daftarkhoneh.Models.FileUpload>)ViewBag.RecentFiles).Count > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>عنوان</th>
+                                    <th>دسته‌بندی</th>
+                                    <th>حجم</th>
+                                    <th>تاریخ آپلود</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var file in (List<_378daftarkhoneh.Models.FileUpload>)ViewBag.RecentFiles)
+                                {
+                                    <tr>
+                                        <td>
+                                            <i class="fas fa-file me-2 text-primary"></i>
+                                            @file.Title
+                                        </td>
+                                        <td>
+                                            <span class="badge" style="background-color: @file.Category.Color">
+                                                @file.Category.Name
+                                            </span>
+                                        </td>
+                                        <td>@((file.FileSize / 1024.0).ToString("F2")) KB</td>
+                                        <td>@file.UploadedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                                        <td>
+                                            <a href="@file.FilePath" target="_blank" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        هیچ فایلی آپلود نشده است.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+    <!-- دسترسی‌های سریع -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-4">
+                    <i class="fas fa-rocket me-2"></i>
+                    دسترسی سریع
+                </h5>
+                
+                <div class="d-grid gap-2">
+                    <a href="/Admin/File/Create" class="btn btn-primary btn-custom">
+                        <i class="fas fa-upload me-2"></i>
+                        آپلود فایل جدید
+                    </a>
+                    <a href="/Admin/Category/Create" class="btn btn-success btn-custom">
+                        <i class="fas fa-folder-plus me-2"></i>
+                        ایجاد دسته‌بندی جدید
+                    </a>
+                    <a href="/Admin/File" class="btn btn-info btn-custom text-white">
+                        <i class="fas fa-list me-2"></i>
+                        مشاهده همه فایل‌ها
+                    </a>
+                    <a href="/Admin/Category" class="btn btn-warning btn-custom text-white">
+                        <i class="fas fa-folder-open me-2"></i>
+                        مدیریت دسته‌بندی‌ها
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- اطلاعات سیستم -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    اطلاعات سیستم
+                </h6>
+                <small class="text-muted">
+                    <div>تاریخ: @DateTime.Now.ToString("yyyy/MM/dd")</div>
+                    <div>ساعت: @DateTime.Now.ToString("HH:mm:ss")</div>
+                    <div>نسخه: 1.0.0</div>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

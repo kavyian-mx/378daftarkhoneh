@@ -1,614 +1,975 @@
-﻿
-<section class="container mt-3">
-    <div class="row">
-        <div class="col-lg-3 card pt-2 order-lg-1 order-2 text-center">
-            <div class="container">
+﻿@{
+    ViewData["Title"] = "صفحه اصلی";
+}
 
-                <div class="row Qlink">
-                    <div class="col-lg-12 pt-lg-2">
-                        <img src="~/assets/Images/head.png" class="mx-auto text-center img-fluid">
-                    </div>
-                    <div class="col-lg-12 col-md-3 col-6 mb-lg-2 mt-lg-0 my-md-2 my-1">
-                        <a href="News.html"><img src="~/assets/Images/banner1.png" class="img-fluid rad12"></a>
-                    </div>
-                    <div class="col-lg-12 col-md-3 col-6 my-md-2 my-1">
-                        <a href="News.html"><img src="~/assets/Images/banner2.png" class="img-fluid rad12"></a>
-                    </div>
-                    <div class="col-lg-12 col-md-3 col-6 my-md-2 my-1">
-                        <a href="News_Details.html"><img src="~/assets/Images/banner3.png" class="img-fluid rad12"></a>
-                    </div>
-                    <div class="col-lg-12 col-md-3 col-6 mt-lg-2 mb-lg-0 my-md-2 my-1">
-                        <a href="News_Details.html"><img src="~/assets/Images/banner4.png" class="img-fluid rad12"></a>
-                    </div>
-                    <div class="col-lg-12">
-                        <img src="~/assets/Images/foot.png" class="mx-auto img-fluid">
+<!-- Hero Slider Section -->
+<section class="hero-slider">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3"></button>
+        </div>
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="slide-bg slide-1">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row align-items-center min-vh-70">
+                            <div class="col-lg-8">
+                                <div class="slide-content">
+                                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown">
+                                        دفترخانه اسناد رسمی ۳۷۸ تهران
+                                    </h1>
+                                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                                        به سرپرستی سردفتر زهره محمدرضازاده
+                                    </p>
+                                    <div class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+                                        <a href="/Home/Services" class="btn btn-primary btn-lg btn-glow">
+                                            <i class="fas fa-file-signature me-2"></i>
+                                            خدمات دفترخانه
+                                        </a>
+                                        <a href="tel:02122709138" class="btn btn-outline-light btn-lg">
+                                            <i class="fas fa-phone me-2"></i>
+                                            تماس فوری
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="col-lg-9 mb-lg-0 mb-3 order-lg-2  order-1">
-            <div id="owl-slider" class="owl-carousel">
-                <div class="item">
-                    <a href="#">
-                        <img src="~/assets/Images/Slides/Slide-1.jpg" alt="slide1" class="img-fluid">
-                        <div class="caption">
-                            <span class="SlideCategori position-absolute bg-danger px-3">
-                                جلسات مدیران
-                            </span>
-                            <p>اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام اقتصادی کشور </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="#">
-                        <img src="~/assets/Images/Slides/Slide-2.jpg" alt="slide1" class="img-fluid">
-                        <div class="caption">
-                            <span class="SlideCategori position-absolute bg-danger px-3">
-                                همایش ها
-                            </span>
-                            <p>فرصت دوباره برای فعال سازی پذیرنده های بانک </p>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<section class="container my-4 text-center">
-    <h5 class="IRANSansWeb_Medium  bt-color">خدمات ما</h5>
-    <p>کلیه خدمات قابل ارائه لورم ایپسوم از صنعت چاپ </p>
-    <div id="owl-Service" class="owl-carousel">
-        <div class="card mx-2 my-3">
-            <div class="card-body">
-                <a href="#">
-                    <img class="rounded-circle" src="~/assets/Images/News/5.jpg" alt="">
-                </a>
-                <h6>آئین نامه ها</h6>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
-                <a href="News_Details.html" class="btn btn-grad px-5 text-white mt-2 rad25">مشاهده</a>
-            </div>
-        </div>
-        <div class="card mx-2 my-3">
-            <div class="card-body">
-                <a href="#">
-                    <img class="rounded-circle" src="~/assets/Images/News/6.jpg" alt="">
-                </a>
-                <h6>بخش نامه ها</h6>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
-                <a href="News_Details.html" class="btn btn-grad px-5 text-white mt-2 rad25">مشاهده</a>
-            </div>
-        </div>
-        <div class="card mx-2 my-3">
-            <div class="card-body">
-                <a href="#">
-                    <img class="rounded-circle" src="~/assets/Images/News/news1.png" alt="">
-                </a>
-                <h6>واحد سازمانی</h6>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
-                <a href="News_Details.html" class="btn btn-grad px-5 text-white mt-2 rad25">مشاهده</a>
-            </div>
-        </div>
-        <div class="card mx-2 my-3">
-            <div class="card-body">
-                <a href="#">
-                    <img class="rounded-circle" src="~/assets/Images/News/news2.jpeg" alt="">
-                </a>
-                <h6>واحد کارگزینی</h6>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
-                <a href="News_Details.html" class="btn btn-grad px-5 text-white mt-2 rad25">مشاهده</a>
-            </div>
-        </div>
-        <div class="card mx-2 my-3">
-            <div class="card-body">
-                <a href="#">
-                    <img class="rounded-circle" src="~/assets/Images/News/news4.png" alt="">
-                </a>
-                <h6>واحد توسعه</h6>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
-                <a href="News_Details.html" class="btn btn-grad px-5 text-white mt-2 rad25">مشاهده</a>
-            </div>
-        </div>
-        <div class="card mx-2 my-3">
-            <div class="card-body">
-                <a href="#">
-                    <img class="rounded-circle" src="~/assets/Images/News/news3.jpg" alt="">
-                </a>
-                <h6>واحد فناوری</h6>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
-                <a href="News_Details.html" class="btn btn-grad px-5 text-white mt-2 rad25">مشاهده</a>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-<section class="container  Nlist wt_box mt-5 relative">
-
-
-    <div class="row">
-
-        <div class="col-lg-9 bx-nws card mb-3">
-            <div class="widget-title">
-                <h1>اخبار مرکز و استان ها</h1>
-            </div>
-            <div class="bg-white  m-0 p-2">
-
-                <ul>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news1.png" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>فرصت دوباره برای فعال سازی مجدد پذیرنده های بانک</h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news2.jpeg" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>
-                                        رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز تعویض پلاک خودرو
+            
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="slide-bg slide-2">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row align-items-center min-vh-70">
+                            <div class="col-lg-8">
+                                <div class="slide-content">
+                                    <h2 class="display-4 fw-bold mb-4 animate__animated animate__fadeInLeft">
+                                        تنظیم انواع اسناد رسمی
                                     </h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
+                                    <p class="lead mb-4 animate__animated animate__fadeInRight">
+                                        املاک، وکالتنامه، اقرارنامه، صلح، ازدواج و طلاق
+                                    </p>
+                                    <a href="/Home/Documents" class="btn btn-warning btn-lg animate__animated animate__fadeInUp">
+                                        <i class="fas fa-download me-2"></i>
+                                        دانلود فرم‌های رایگان
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news3.jpg" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام اقتصادی کشور </h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news4.png" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>افزایش حقوق معلمان چه زمانی واریز می شود؟</h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news3.jpg" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>فرصت دوباره برای فعال سازی مجدد پذیرنده های بانک</h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news2.jpeg" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>
-                                        رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز تعویض پلاک خودرو
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <div class="slide-bg slide-3">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row align-items-center min-vh-70">
+                            <div class="col-lg-8">
+                                <div class="slide-content">
+                                    <h2 class="display-4 fw-bold mb-4 animate__animated animate__bounceInDown">
+                                        محاسبه آنلاین هزینه‌ها
                                     </h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
+                                    <p class="lead mb-4 animate__animated animate__bounceInUp">
+                                        تعرفه شفاف و قانونی سال ۱۴۰۳
+                                    </p>
+                                    <a href="/Home/CostCalculator" class="btn btn-success btn-lg btn-pulse">
+                                        <i class="fas fa-calculator me-2"></i>
+                                        محاسبه هزینه
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news1.png" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام اقتصادی کشور </h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3">
-                                <a href="News_Details.html"><img src="~/assets/Images/News/news2.jpeg" class="img-fluid"></a>
-                            </div>
-                            <div class="col-lg-10 col-md-9">
-                                <a href="News_Details.html">
-                                    <h2>افزایش حقوق معلمان چه زمانی واریز می شود؟</h2>
-                                </a>
-                                <p>
-                                    به گزارش روابط عمومی پژوهشگاه ارتباطات و فناوری اطلاعات؛ دومین جلسه شورای
-                                    هماهنگی
-                                    روابط عمومی‌های سازمان‌ها و شرکت‌های تابعه وزارت ارتباطات و فناوری اطلاعات ..
-                                </p>
-
-                            </div>
-                        </div>
-                    </li>
-
-
-
-
-
-                </ul>
-                <div class="d-flex flex-row tttt justify-content-between pb-2 px-3">
-                    <div>
-                        « نمایش 4 از کل »
-                    </div>
-
-                    <div>
-                        <a href="#">مشاهده بیشتر »</a>
                     </div>
                 </div>
             </div>
-
-        </div>
-
-        <div class="col-lg-3 d-lg-block d-none">
-            <a href="#"><img src="~/assets/Images/emono1.jpeg" class="img-fluid rad12 mb-3"></a>
-            <a href="#"><img src="~/assets/Images/event01.jpg" class="img-fluid rad12 mb-3"></a>
-        </div>
-    </div>
-
-</section>
-
-<section class="container Lnews mt-5">
-
-    <div class="row">
-        <div class="col-lg-6 mb-3">
-            <div class="card wt_box px-3">
-                <div class="widget-title">
-                    <h1>اخبـار همایش ها</h1>
-                </div>
-                <ul>
-                    <li>
-                        <a href="News_Details.html">
-                            اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام
-                            اقتصادی کشور
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز
-                            تعویض پلاک خودرو
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های
-                            بانک
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام
-                            اقتصادی کشور
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز
-                            تعویض پلاک خودرو
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های
-                            بانک
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام
-                            اقتصادی کشور
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-6 mb-3">
-            <div class="card wt_box px-3">
-                <div class="widget-title">
-                    <h1>اخبـار فناوری ها</h1>
-                </div>
-
-                <ul>
-                    <li>
-                        <a href="News_Details.html">
-                            رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز
-                            تعویض پلاک خودرو
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های
-                            بانک
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام
-                            اقتصادی کشور
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز
-                            تعویض پلاک خودرو
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های
-                            بانک
-                        </a>
-                    </li>
-                    <li>
-                        <a href="News_Details.html">
-                            اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام
-                            اقتصادی کشور
-                        </a>
-                    </li>
-                    <li><a href="News_Details.html">افزایش حقوق معلمان چه زمانی واریز می شود؟</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="container mt-5">
-    <h5 class="IRANSansWeb_Medium text-center bt-color">آخرین اخبارها و رویدادها</h5>
-    <div id="owl-topnews" class="owl-carousel mt-3 text-center">
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news1.png" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-
-            <a href="News_Details.html">
-                <h2>اجرای قانون پایانه های فروشگاهی ، نقطه عطفی برای نظام اقتصادی کشور است</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/5.jpg" class="mb-3 img-fluid rad12">
-                <div class="d-flex flex-column covernews">
-                    <div class="d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                        <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                        <span><i class="fas fa-eye ml-1"></i>28 بار</span>
+            
+            <!-- Slide 4 -->
+            <div class="carousel-item">
+                <div class="slide-bg slide-4">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row align-items-center min-vh-70">
+                            <div class="col-lg-8">
+                                <div class="slide-content">
+                                    <h2 class="display-4 fw-bold mb-4 animate__animated animate__zoomIn">
+                                        در خدمت شما از سال ۱۳۸۰
+                                    </h2>
+                                    <p class="lead mb-4 animate__animated animate__zoomIn animate__delay-1s">
+                                        بیش از ۱۵,۰۰۰ سند تنظیمی با رضایت کامل مراجعین
+                                    </p>
+                                    <a href="/Home/Contact" class="btn btn-info btn-lg text-white">
+                                        <i class="fas fa-map-marked-alt me-2"></i>
+                                        آدرس و موقعیت
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>رونمایی از سامانه پرداخت مالیات نقل و انتقال خودرو در مرکز تعویض پلاک خودرو</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
+            </div>
         </div>
-
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news3.jpg" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>امکان استعلام ممنوع الخروجی از طریق درگاه ملی خدمات الکترونیک سازمان مالیاتی</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news2.jpeg" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های بانکی</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news1.png" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>امکان استعلام ممنوع الخروجی از طریق درگاه ملی خدمات الکترونیک سازمان مالیاتی</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news2.jpeg" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های بانکی</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news4.png" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>امکان استعلام ممنوع الخروجی از طریق درگاه ملی خدمات الکترونیک سازمان مالیاتی</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
-        <div class="card my-3 mx-2">
-            <a href="News_Details.html" class="relative">
-                <img src="~/assets/Images/News/news3.jpg" class="mb-3 img-fluid rad12">
-                <div class="covernews d-flex flex-row justify-content-between px-3 text-white IRANSansWeb_Medium ">
-                    <span class="bottom_p"><i class="fas fa-clock ml-1"></i>98/5/9</span>
-                    <span><i class="fas fa-eye ml-1"></i>28 بار</span>
-                </div>
-            </a>
-            <a href="News_Details.html">
-                <h2>اطلاعیه مهم: فرصت دوباره برای فعال سازی مجدد پذیرنده های بانکی</h2>
-            </a>
-            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ با استفاده ..</p>
-            <a href="News_Details.html" class="text-danger IRANSansWeb_Medium mb-3">مشاهده خبر »</a>
-        </div>
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
-
 </section>
 
-<section class="container-fluid py-5">
+<!-- Quick Info Bar -->
+<section class="quick-info-bar">
     <div class="container">
-        <div id="foottop" class="row p-3 mx-2 mt-2 grad-bg text-center text-white rad25">
-            <div class="col-lg-4">
-                <a href="#"><img src="~/assets/Images/logo2.png"></a>
+        <div class="row g-0">
+            <div class="col-md-3">
+                <div class="info-box">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h6>ساعات کاری</h6>
+                        <p>شنبه تا چهارشنبه ۸:۰۰ - ۱۵:۳۰</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-8">
-                <h6 class="mb-2 IRANSansWeb_Medium">شماره های تماس :</h6>
-                <img src="~/assets/Images/chevron.png">
-                <a href="#" class="rounded-btn text-white text-center support-phone IRANSansWeb_Bold">
-                    01733265147 __
-                    01733265149
+            <div class="col-md-3">
+                <div class="info-box">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <h6>تماس فوری</h6>
+                        <p>۰۲۱-۲۲۷۰۹۱۳۸</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-box">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h6>آدرس</h6>
+                        <p>ولیعصر، نرسیده به تجریش</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-box">
+                    <i class="fas fa-user-tie"></i>
+                    <div>
+                        <h6>سردفتر</h6>
+                        <p>زهره محمدرضازاده</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Access Section -->
+<section class="quick-access py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">دسترسی سریع</h2>
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="quick-card text-center">
+                    <div class="icon-box">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h5>اسناد املاک</h5>
+                    <p>خرید، فروش، اجاره</p>
+                    <a href="/Home/RealEstateDocuments" class="btn btn-sm btn-outline-primary">مشاهده</a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="quick-card text-center">
+                    <div class="icon-box">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h5>اسناد حقوقی</h5>
+                    <p>وکالت، اقرار، تعهد</p>
+                    <a href="/Home/LegalDocuments" class="btn btn-sm btn-outline-primary">مشاهده</a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="quick-card text-center">
+                    <div class="icon-box">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h5>خدمات ازدواج</h5>
+                    <p>شروط ضمن عقد</p>
+                    <a href="/Home/MarriageServices" class="btn btn-sm btn-outline-primary">مشاهده</a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="quick-card text-center">
+                    <div class="icon-box">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h5>محاسبه هزینه</h5>
+                    <p>محاسبه آنلاین تعرفه</p>
+                    <a href="/Home/CostCalculator" class="btn btn-sm btn-outline-primary">محاسبه</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>خدمات دفترخانه</h2>
+            <p class="lead">ما در زمینه‌های مختلف حقوقی و ثبتی به شما خدمات ارائه می‌دهیم</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h4>تنظیم قرارداد</h4>
+                    <ul class="service-list">
+                        <li>قرارداد خرید و فروش</li>
+                        <li>قرارداد اجاره</li>
+                        <li>قرارداد رهن</li>
+                        <li>قرارداد مشارکت</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h4>اسناد حقوقی</h4>
+                    <ul class="service-list">
+                        <li>وکالتنامه</li>
+                        <li>اقرارنامه</li>
+                        <li>تعهدنامه</li>
+                        <li>رضایتنامه</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card h-100">
+                    <div class="service-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h4>گواهی و استعلام</h4>
+                    <ul class="service-list">
+                        <li>گواهی امضا</li>
+                        <li>استعلام ملک</li>
+                        <li>استشهادنامه</li>
+                        <li>گواهی وراثت</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Documents Section -->
+@if (ViewBag.RecentFiles != null && ((List<_378daftarkhoneh.Models.FileUpload>)ViewBag.RecentFiles).Count > 0)
+{
+    <section class="documents-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>آخرین فرم‌ها و مستندات</h2>
+                <p class="lead">دانلود فرم‌های آماده برای تسریع در انجام امور</p>
+            </div>
+            <div class="row g-4">
+                @foreach (var file in (List<_378daftarkhoneh.Models.FileUpload>)ViewBag.RecentFiles)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="document-card">
+                            <div class="document-icon">
+                                <i class="@file.Category.Icon"></i>
+                            </div>
+                            <div class="document-info">
+                                <h6>@file.Title</h6>
+                                <p class="text-muted mb-2">@file.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge" style="background-color: @file.Category.Color">
+                                        @file.Category.Name
+                                    </span>
+                                    <a href="@file.FilePath" class="btn btn-sm btn-primary" target="_blank">
+                                        <i class="fas fa-download"></i> دانلود
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <a href="/Home/Documents" class="btn btn-outline-primary btn-custom">
+                    مشاهده همه فرم‌ها
                 </a>
-                <img src="~/assets/Images/chevron2.png">
             </div>
         </div>
+    </section>
+}
 
+<!-- Features Section -->
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="mb-4">چرا دفترخانه ۳۷۸؟</h2>
+                <div class="feature-item d-flex mb-4">
+                    <div class="feature-icon me-3">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <h5>امنیت و اعتماد</h5>
+                        <p>تمامی اسناد با رعایت کامل قوانین و مقررات ثبتی تنظیم می‌شود</p>
+                    </div>
+                </div>
+                <div class="feature-item d-flex mb-4">
+                    <div class="feature-icon me-3">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h5>سرعت در انجام کار</h5>
+                        <p>با استفاده از سیستم‌های نوین، کارهای شما در کمترین زمان انجام می‌شود</p>
+                    </div>
+                </div>
+                <div class="feature-item d-flex mb-4">
+                    <div class="feature-icon me-3">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <h5>کادر مجرب</h5>
+                        <p>تیم حقوقی ما با تجربه بیش از ۲۰ سال آماده خدمت‌رسانی به شماست</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="~/images/features.svg" alt="ویژگی‌ها" class="img-fluid">
+            </div>
+        </div>
     </div>
 </section>
 
-
-
-<section class="container text-center pb-5">
-    <h5 class="IRANSansWeb_Bold bt-color">لینک های مرتبط</h5>
-    <p>جهت مشاهده بر روی هر لینک کلیک کرده و وارد سایت مربوطه شوید</p>
-    <div id="owl-province" class="owl-carousel mt-4">
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-01.png" class="rad25">
-            </a>
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="cta-box text-center text-white">
+            <h3 class="mb-4">نیاز به مشاوره دارید؟</h3>
+            <p class="lead mb-4">کارشناسان ما آماده پاسخگویی به سوالات شما هستند</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="tel:02188195217" class="btn btn-light btn-lg btn-custom">
+                    <i class="fas fa-phone me-2"></i>
+                    تماس بگیرید
+                </a>
+                <a href="/Home/Contact" class="btn btn-outline-light btn-lg btn-custom">
+                    <i class="fas fa-envelope me-2"></i>
+                    فرم تماس
+                </a>
+            </div>
         </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-02.png" class="rad25">
-            </a>
-        </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-03.png" class="rad25">
-            </a>
-        </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-05.png" class="rad25">
-            </a>
-        </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-06.png" class="rad25">
-            </a>
-        </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-01.png" class="rad25">
-            </a>
-        </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-02.png" class="rad25">
-            </a>
-        </div>
-        <div class="card m-2">
-            <a href="#">
-                <img src="~/assets/Images/llogo-03.png" class="rad25">
-            </a>
-        </div>
-
     </div>
-
 </section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize carousel with auto rotation
+            var carousel = new bootstrap.Carousel(document.querySelector('#heroCarousel'), {
+                interval: 6000,
+                wrap: true,
+                pause: 'hover'
+            });
+
+            // Add animation effects when slide changes
+            $('#heroCarousel').on('slide.bs.carousel', function (e) {
+                // Reset all animations
+                $(this).find('.animate__animated').removeClass('animate__animated animate__fadeInDown animate__fadeInUp animate__fadeInLeft animate__fadeInRight animate__bounceInDown animate__bounceInUp animate__zoomIn animate__delay-1s animate__delay-2s');
+            });
+
+            $('#heroCarousel').on('slid.bs.carousel', function (e) {
+                // Add animations to active slide
+                var activeSlide = $(this).find('.carousel-item.active');
+                
+                setTimeout(function() {
+                    activeSlide.find('h1, h2').addClass('animate__animated animate__fadeInDown');
+                }, 200);
+                
+                setTimeout(function() {
+                    activeSlide.find('p').addClass('animate__animated animate__fadeInUp animate__delay-1s');
+                }, 400);
+                
+                setTimeout(function() {
+                    activeSlide.find('.btn, .d-flex').addClass('animate__animated animate__fadeInUp animate__delay-2s');
+                }, 600);
+            });
+
+            // Counter animation for visitor count
+            function animateCounter() {
+                let targetCount = 15685;
+                let currentCount = 0;
+                let increment = targetCount / 100;
+                let counter = setInterval(function() {
+                    currentCount += increment;
+                    if (currentCount >= targetCount) {
+                        currentCount = targetCount;
+                        clearInterval(counter);
+                    }
+                    $('.visitor-counter').text(toPersianNumbers(Math.floor(currentCount).toLocaleString()));
+                }, 50);
+            }
+
+            // تابع تبدیل اعداد انگلیسی به فارسی
+            function toPersianNumbers(str) {
+                const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+                return str.toString().replace(/\d/g, function(digit) {
+                    return persianDigits[parseInt(digit)];
+                });
+            }
+
+            // Trigger counter animation when visitor info is visible
+            if ($('.visitor-counter').length) {
+                animateCounter();
+            }
+
+            // Smooth scrolling for internal links
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if( target.length ) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 100
+                    }, 1000);
+                }
+            });
+
+            // Parallax effect for slides
+            $(window).scroll(function() {
+                var scrolled = $(this).scrollTop();
+                var rate = scrolled * -0.5;
+                
+                $('.slide-bg').css({
+                    'transform': 'translate3d(0, ' + rate + 'px, 0)'
+                });
+            });
+
+            // Add loading animation to buttons
+            $('.btn').on('click', function() {
+                var btn = $(this);
+                if (!btn.hasClass('no-loading')) {
+                    btn.addClass('loading');
+                    setTimeout(function() {
+                        btn.removeClass('loading');
+                    }, 2000);
+                }
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        $(entry.target).addClass('animate-in');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for scroll animations
+            $('.quick-card, .service-card, .feature-item, .document-card').each(function() {
+                observer.observe(this);
+            });
+        });
+
+        // Add visitor counter in hero section
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add visitor count display
+            var visitorInfo = document.createElement('div');
+            visitorInfo.className = 'visitor-info position-absolute';
+            visitorInfo.style.cssText = 'bottom: 100px; right: 30px; background: rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 25px; backdrop-filter: blur(10px); color: white; font-size: 0.9rem;';
+            visitorInfo.innerHTML = '<i class="fas fa-eye me-2"></i>تعداد بازدید: <span class="visitor-counter fw-bold">۱۵,۶۸۵</span>';
+            
+            document.querySelector('.carousel-item.active .slide-bg').appendChild(visitorInfo);
+        });
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* Hero Slider Styles */
+        .hero-slider {
+            position: relative;
+            overflow: hidden;
+            margin-top: -100px;
+            padding-top: 100px;
+        }
+
+        .min-vh-70 {
+            min-height: 70vh;
+        }
+
+        .slide-bg {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .slide-1 {
+            background-image: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(66, 153, 225, 0.6)), 
+                              url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        .slide-2 {
+            background-image: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(66, 153, 225, 0.6)), 
+                              url('https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
+        }
+
+        .slide-3 {
+            background-image: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(66, 153, 225, 0.6)), 
+                              url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        .slide-4 {
+            background-image: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(66, 153, 225, 0.6)), 
+                              url('https://images.unsplash.com/photo-1569012871812-f38ee64cd54c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 152, 219, 0.7) 100%);
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .carousel-indicators {
+            bottom: 30px;
+        }
+
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-size: 30px;
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Button Effects */
+        .btn-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @@keyframes glow {
+            from {
+                box-shadow: 0 0 10px -10px #3498db;
+            }
+            to {
+                box-shadow: 0 0 20px 10px #3498db;
+            }
+        }
+
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @@keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Quick Info Bar */
+        .quick-info-bar {
+            background: var(--primary-color);
+            color: white;
+            padding: 0;
+            margin-top: -1px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .info-box {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .info-box:first-child {
+            border-left: none;
+        }
+
+        .info-box i {
+            font-size: 2rem;
+            margin-left: 15px;
+            color: var(--secondary-color);
+        }
+
+        .info-box h6 {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Quick Access Cards - Updated */
+        .quick-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .quick-card:hover::before {
+            animation: shine 0.5s ease-in-out;
+        }
+
+        @@keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .quick-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .icon-box {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .quick-card:hover .icon-box {
+            transform: rotate(360deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .icon-box i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        /* Service Cards - Enhanced */
+        .service-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        /* Feature Items - Enhanced */
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary-color), #3498db);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        /* CTA Section - Enhanced */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @@keyframes backgroundMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .cta-box {
+            padding: 80px 40px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .slide-content h1 {
+                font-size: 2rem;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .info-box {
+                border-left: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .info-box i {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Enhanced Animations */
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button Loading Effect */
+        .btn.loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Visitor Info Styling */
+        .visitor-info {
+            animation: fadeInRight 1s ease-out 3s both;
+        }
+
+        @@keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Enhanced Quick Access Animation */
+        .quick-access {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .quick-card {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+
+        .quick-card.animate-in {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .quick-card:nth-child(1) { transition-delay: 0.1s; }
+        .quick-card:nth-child(2) { transition-delay: 0.2s; }
+        .quick-card:nth-child(3) { transition-delay: 0.3s; }
+        .quick-card:nth-child(4) { transition-delay: 0.4s; }
+
+        /* Service Cards Enhanced */
+        .service-list li {
+            padding: 8px 0;
+            padding-right: 20px;
+            position: relative;
+        }
+
+        .service-list li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* Document Cards */
+        .document-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .document-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+    </style>
+}

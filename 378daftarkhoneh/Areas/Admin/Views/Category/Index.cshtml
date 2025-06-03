@@ -1,0 +1,90 @@
+@model IEnumerable<_378daftarkhoneh.Models.Category>
+@{
+    ViewData["Title"] = "مدیریت دسته‌بندی‌ها";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>
+        <i class="fas fa-folder me-2"></i>
+        مدیریت دسته‌بندی‌ها
+    </h4>
+    <a asp-action="Create" class="btn btn-success btn-custom">
+        <i class="fas fa-plus me-2"></i>
+        ایجاد دسته‌بندی جدید
+    </a>
+</div>
+
+@if (Model.Any())
+{
+    <div class="table-custom">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>آیکون</th>
+                    <th>نام دسته‌بندی</th>
+                    <th>توضیحات</th>
+                    <th>تعداد فایل‌ها</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>
+                            <span class="badge" style="background-color: @category.Color; font-size: 1.2rem;">
+                                <i class="@category.Icon"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <strong>@category.Name</strong>
+                        </td>
+                        <td>@(category.Description ?? "-")</td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                @(category.Files?.Count ?? 0) فایل
+                            </span>
+                        </td>
+                        <td>@category.CreatedAt.ToString("yyyy/MM/dd")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @if (category.Files == null || category.Files.Count == 0)
+                            {
+                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteCategory(@category.Id, '@category.Name')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        هیچ دسته‌بندی وجود ندارد. برای شروع یک دسته‌بندی جدید ایجاد کنید.
+    </div>
+}
+
+<!-- Delete Form -->
+<form id="deleteForm" asp-action="Delete" method="post" style="display: none;">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="deleteId" name="id" />
+</form>
+
+@section Scripts {
+    <script>
+        function deleteCategory(id, name) {
+            if (confirm(`آیا از حذف دسته‌بندی "${name}" اطمینان دارید؟`)) {
+                document.getElementById('deleteId').value = id;
+                document.getElementById('deleteForm').submit();
+            }
+        }
+    </script>
+} 

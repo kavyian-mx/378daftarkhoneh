@@ -1,0 +1,146 @@
+@model IEnumerable<_378daftarkhoneh.Models.FileUpload>
+@{
+    ViewData["Title"] = "مدیریت فایل‌ها";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>
+        <i class="fas fa-file-alt me-2"></i>
+        مدیریت فایل‌ها
+    </h4>
+    <a asp-action="Create" class="btn btn-primary btn-custom">
+        <i class="fas fa-upload me-2"></i>
+        آپلود فایل جدید
+    </a>
+</div>
+
+@if (Model.Any())
+{
+    <div class="table-custom">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>نوع فایل</th>
+                    <th>عنوان</th>
+                    <th>دسته‌بندی</th>
+                    <th>حجم</th>
+                    <th>تاریخ آپلود</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var file in Model)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                var icon = "fa-file";
+                                var color = "#95a5a6";
+                                
+                                if (file.FileType.Contains("image"))
+                                {
+                                    icon = "fa-file-image";
+                                    color = "#e74c3c";
+                                }
+                                else if (file.FileType.Contains("pdf"))
+                                {
+                                    icon = "fa-file-pdf";
+                                    color = "#e74c3c";
+                                }
+                                else if (file.FileType.Contains("word") || file.FileType.Contains("document"))
+                                {
+                                    icon = "fa-file-word";
+                                    color = "#3498db";
+                                }
+                                else if (file.FileType.Contains("excel") || file.FileType.Contains("spreadsheet"))
+                                {
+                                    icon = "fa-file-excel";
+                                    color = "#27ae60";
+                                }
+                                else if (file.FileType.Contains("video"))
+                                {
+                                    icon = "fa-file-video";
+                                    color = "#9b59b6";
+                                }
+                                else if (file.FileType.Contains("audio"))
+                                {
+                                    icon = "fa-file-audio";
+                                    color = "#f39c12";
+                                }
+                                else if (file.FileType.Contains("zip") || file.FileType.Contains("rar"))
+                                {
+                                    icon = "fa-file-archive";
+                                    color = "#34495e";
+                                }
+                            }
+                            <i class="fas @icon fa-2x" style="color: @color"></i>
+                        </td>
+                        <td>
+                            <strong>@file.Title</strong>
+                            <br />
+                            <small class="text-muted">@file.FileName</small>
+                        </td>
+                        <td>
+                            <span class="badge" style="background-color: @file.Category.Color">
+                                <i class="@file.Category.Icon me-1"></i>
+                                @file.Category.Name
+                            </span>
+                        </td>
+                        <td>
+                            @if (file.FileSize < 1024)
+                            {
+                                @($"{file.FileSize} B")
+                            }
+                            else if (file.FileSize < 1048576)
+                            {
+                                @($"{(file.FileSize / 1024.0):F2} KB")
+                            }
+                            else
+                            {
+                                @($"{(file.FileSize / 1048576.0):F2} MB")
+                            }
+                        </td>
+                        <td>@file.UploadedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="@file.FilePath" target="_blank" class="btn btn-sm btn-info text-white" title="دانلود">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@file.Id" class="btn btn-sm btn-primary" title="ویرایش">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteFile(@file.Id, '@file.Title')" title="حذف">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        هیچ فایلی آپلود نشده است. برای شروع یک فایل جدید آپلود کنید.
+    </div>
+}
+
+<!-- Delete Form -->
+<form id="deleteForm" asp-action="Delete" method="post" style="display: none;">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="deleteId" name="id" />
+</form>
+
+@section Scripts {
+    <script>
+        function deleteFile(id, title) {
+            if (confirm(`آیا از حذف فایل "${title}" اطمینان دارید؟`)) {
+                document.getElementById('deleteId').value = id;
+                document.getElementById('deleteForm').submit();
+            }
+        }
+    </script>
+} 

@@ -1,0 +1,153 @@
+@model _378daftarkhoneh.Models.Category
+@{
+    ViewData["Title"] = "ویرایش دسته‌بندی";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>
+                    ویرایش دسته‌بندی
+                </h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CreatedAt" />
+                    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label">
+                                    <i class="fas fa-tag me-1"></i>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Icon" class="form-label">
+                                    <i class="fas fa-icons me-1"></i>
+                                    @Html.DisplayNameFor(model => model.Icon)
+                                </label>
+                                <div class="input-group">
+                                    <input asp-for="Icon" class="form-control" />
+                                    <button type="button" class="btn btn-outline-secondary" onclick="showIconPicker()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <span asp-validation-for="Icon" class="text-danger"></span>
+                                <small class="text-muted">از آیکون‌های Font Awesome استفاده کنید</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">
+                            <i class="fas fa-align-left me-1"></i>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Color" class="form-label">
+                            <i class="fas fa-palette me-1"></i>
+                            @Html.DisplayNameFor(model => model.Color)
+                        </label>
+                        <div class="d-flex align-items-center">
+                            <input asp-for="Color" type="color" class="form-control form-control-color me-2" style="width: 60px;" />
+                            <input asp-for="Color" type="text" class="form-control" readonly />
+                        </div>
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary btn-custom">
+                            <i class="fas fa-save me-2"></i>
+                            ذخیره تغییرات
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary btn-custom">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            بازگشت
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Icon Picker Modal -->
+<div class="modal fade" id="iconPickerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">انتخاب آیکون</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3" id="iconGrid">
+                    <!-- آیکون‌های رایج -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Color picker sync
+        document.querySelector('input[type="color"]').addEventListener('input', function(e) {
+            document.querySelector('input[type="text"][name="Color"]').value = e.target.value;
+        });
+        
+        document.querySelector('input[type="text"][name="Color"]').addEventListener('input', function(e) {
+            document.querySelector('input[type="color"]').value = e.target.value;
+        });
+        
+        // Icon picker
+        const icons = [
+            'fa-folder', 'fa-file', 'fa-file-alt', 'fa-file-pdf', 'fa-file-word', 'fa-file-excel',
+            'fa-file-image', 'fa-file-video', 'fa-file-audio', 'fa-file-archive', 'fa-file-code',
+            'fa-book', 'fa-bookmark', 'fa-briefcase', 'fa-building', 'fa-calendar', 'fa-camera',
+            'fa-certificate', 'fa-chart-bar', 'fa-clipboard', 'fa-clock', 'fa-cloud', 'fa-database',
+            'fa-envelope', 'fa-flag', 'fa-globe', 'fa-graduation-cap', 'fa-heart', 'fa-home',
+            'fa-image', 'fa-info-circle', 'fa-key', 'fa-laptop', 'fa-list', 'fa-lock',
+            'fa-map', 'fa-money-bill', 'fa-music', 'fa-newspaper', 'fa-palette', 'fa-paperclip',
+            'fa-pen', 'fa-phone', 'fa-photo-video', 'fa-project-diagram', 'fa-shopping-cart',
+            'fa-star', 'fa-tag', 'fa-tasks', 'fa-user', 'fa-users', 'fa-video'
+        ];
+        
+        function showIconPicker() {
+            const grid = document.getElementById('iconGrid');
+            grid.innerHTML = '';
+            
+            icons.forEach(icon => {
+                const col = document.createElement('div');
+                col.className = 'col-2 text-center';
+                col.innerHTML = `
+                    <button type="button" class="btn btn-light w-100 p-3" onclick="selectIcon('${icon}')">
+                        <i class="fas ${icon} fa-2x"></i>
+                        <small class="d-block mt-1">${icon.replace('fa-', '')}</small>
+                    </button>
+                `;
+                grid.appendChild(col);
+            });
+            
+            new bootstrap.Modal(document.getElementById('iconPickerModal')).show();
+        }
+        
+        function selectIcon(icon) {
+            document.getElementById('Icon').value = icon;
+            bootstrap.Modal.getInstance(document.getElementById('iconPickerModal')).hide();
+        }
+    </script>
+} 

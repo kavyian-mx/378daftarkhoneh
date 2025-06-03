@@ -1,0 +1,359 @@
+@using _378daftarkhoneh.Models
+@model IEnumerable<UserFile>
+@{
+    ViewData["Title"] = "پنل کاربری";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="dashboard-section py-4">
+    <div class="container">
+        <!-- User Welcome -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="welcome-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="mb-1">خوش آمدید، @User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value</h2>
+                            <p class="text-muted mb-0">پنل کاربری دفترخانه ۳۷۸</p>
+                        </div>
+                        <div class="welcome-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-files"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>@ViewBag.TotalFiles</h3>
+                        <p>کل فایل‌ها</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>@ViewBag.PendingFiles</h3>
+                        <p>در انتظار بررسی</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>@ViewBag.CompletedFiles</h3>
+                        <p>تکمیل شده</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <div class="stat-content">
+                        <a href="@Url.Action("UploadFile")" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>
+                            آپلود جدید
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h5>آپلود فایل</h5>
+                    <p>مدارک خود را برای بررسی ارسال کنید</p>
+                    <a href="@Url.Action("UploadFile")" class="btn btn-primary">ارسال فایل</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <h5>فایل‌های من</h5>
+                    <p>مشاهده لیست تمام فایل‌های ارسالی</p>
+                    <a href="@Url.Action("MyFiles")" class="btn btn-secondary">مشاهده همه</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h5>پروفایل</h5>
+                    <p>ویرایش اطلاعات شخصی</p>
+                    <a href="@Url.Action("Profile")" class="btn btn-info">ویرایش پروفایل</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Files -->
+        <div class="row">
+            <div class="col-12">
+                <div class="files-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">آخرین فایل‌های ارسالی</h5>
+                        <a href="@Url.Action("MyFiles")" class="btn btn-outline-primary btn-sm">مشاهده همه</a>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>عنوان</th>
+                                            <th>دسته‌بندی</th>
+                                            <th>وضعیت</th>
+                                            <th>تاریخ ارسال</th>
+                                            <th>عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var file in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="@file.Category.Icon me-2 text-primary"></i>
+                                                        <span>@file.Title</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge" style="background-color: @file.Category.Color">
+                                                        @file.Category.Name
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    @switch (file.Status)
+                                                    {
+                                                        case FileStatus.Pending:
+                                                            <span class="badge bg-warning">در انتظار بررسی</span>
+                                                            break;
+                                                        case FileStatus.InProgress:
+                                                            <span class="badge bg-info">در حال بررسی</span>
+                                                            break;
+                                                        case FileStatus.Completed:
+                                                            <span class="badge bg-success">تکمیل شده</span>
+                                                            break;
+                                                        case FileStatus.Rejected:
+                                                            <span class="badge bg-danger">رد شده</span>
+                                                            break;
+                                                        case FileStatus.NeedMoreInfo:
+                                                            <span class="badge bg-secondary">نیاز به اطلاعات بیشتر</span>
+                                                            break;
+                                                    }
+                                                </td>
+                                                <td>@file.UploadedAt.ToString("yyyy/MM/dd")</td>
+                                                <td>
+                                                    <a href="@file.FilePath" class="btn btn-sm btn-outline-primary" target="_blank">
+                                                        <i class="fas fa-download"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                <h6>هنوز فایلی ارسال نکرده‌اید</h6>
+                                <p class="text-muted">برای شروع، اولین فایل خود را ارسال کنید</p>
+                                <a href="@Url.Action("UploadFile")" class="btn btn-primary">ارسال فایل</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .dashboard-section {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .welcome-icon i {
+            font-size: 3rem;
+            opacity: 0.7;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-primary { border-color: var(--primary-color); }
+        .stat-warning { border-color: var(--warning-color); }
+        .stat-success { border-color: var(--success-color); }
+        .stat-info { border-color: var(--info-color); }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+        }
+
+        .stat-primary .stat-icon {
+            background: rgba(26, 54, 93, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stat-warning .stat-icon {
+            background: rgba(221, 107, 32, 0.1);
+            color: var(--warning-color);
+        }
+
+        .stat-success .stat-icon {
+            background: rgba(56, 161, 105, 0.1);
+            color: var(--success-color);
+        }
+
+        .stat-info .stat-icon {
+            background: rgba(49, 130, 206, 0.1);
+            color: var(--info-color);
+        }
+
+        .stat-icon i {
+            font-size: 1.5rem;
+        }
+
+        .stat-content h3 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .stat-content p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .action-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .action-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .action-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .files-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .files-card .card-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px 25px;
+            border: none;
+        }
+
+        .files-card .card-body {
+            padding: 25px;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            border: none;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .table td {
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Auto refresh badge counts every 30 seconds
+        setInterval(function() {
+            // Refresh logic here if needed
+        }, 30000);
+    </script>
+} 
