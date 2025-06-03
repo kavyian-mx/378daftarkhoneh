@@ -1,0 +1,685 @@
+@model _378daftarkhoneh.Models.BlogPost
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="post-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">صفحه اصلی</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Blog">وبلاگ</a>
+                        </li>
+                        @if (!string.IsNullOrEmpty(Model.Category))
+                        {
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Category", new { id = Model.Category })">@Model.Category</a>
+                            </li>
+                        }
+                        <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                    </ol>
+                </nav>
+
+                @if (!string.IsNullOrEmpty(Model.Category))
+                {
+                    <span class="post-category">@Model.Category</span>
+                }
+                
+                <h1 class="post-title">@Model.Title</h1>
+                
+                <div class="post-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-user me-1"></i>
+                        @Model.Author
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-calendar-alt me-1"></i>
+                        @((Model.PublishedAt ?? Model.CreatedAt).ToString("yyyy/MM/dd"))
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-eye me-1"></i>
+                        @Model.ViewCount بازدید
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Tags))
+                    {
+                        <div class="meta-item">
+                            <i class="fas fa-tags me-1"></i>
+                            @foreach (var tag in Model.Tags.Split(',').Select(t => t.Trim()))
+                            {
+                                <span class="tag">@tag</span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="post-content py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <article class="post-article">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="post-featured-image mb-5">
+                            <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded-3">
+                        </div>
+                    }
+
+                    <div class="post-body">
+                        @Html.Raw(Model.Content.Replace("\n", "<br>"))
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="share-section mt-5 pt-4 border-top">
+                        <h5 class="mb-3">
+                            <i class="fas fa-share-alt me-2"></i>
+                            اشتراک‌گذاری
+                        </h5>
+                        <div class="share-buttons">
+                            <a href="https://t.me/share/url?url=@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")&text=@Model.Title" 
+                               target="_blank" class="share-btn telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                                تلگرام
+                            </a>
+                            <a href="https://wa.me/?text=@Model.Title%20@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" 
+                               target="_blank" class="share-btn whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                                واتساپ
+                            </a>
+                            <a href="javascript:void(0)" onclick="copyToClipboard()" class="share-btn copy">
+                                <i class="fas fa-copy"></i>
+                                کپی لینک
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Related Posts -->
+                @if (ViewBag.RelatedPosts != null && ((List<_378daftarkhoneh.Models.BlogPost>)ViewBag.RelatedPosts).Any())
+                {
+                    <section class="related-posts mt-5 pt-4 border-top">
+                        <h4 class="mb-4">
+                            <i class="fas fa-layer-group me-2"></i>
+                            مطالب مرتبط
+                        </h4>
+                        <div class="row g-4">
+                            @foreach (var post in (List<_378daftarkhoneh.Models.BlogPost>)ViewBag.RelatedPosts)
+                            {
+                                <div class="col-md-4">
+                                    <article class="related-post-card">
+                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <div class="related-post-image">
+                                                <img src="@post.ImageUrl" alt="@post.Title" class="img-fluid">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="related-post-placeholder">
+                                                <i class="fas fa-file-alt"></i>
+                                            </div>
+                                        }
+                                        <div class="related-post-content">
+                                            <h6>
+                                                <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })">
+                                                    @post.Title
+                                                </a>
+                                            </h6>
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                            </small>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                }
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <aside class="post-sidebar">
+                    <!-- Table of Contents (if needed) -->
+                    <div class="sidebar-widget toc-widget">
+                        <h5 class="widget-title">
+                            <i class="fas fa-list me-2"></i>
+                            فهرست مطالب
+                        </h5>
+                        <div id="table-of-contents">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Posts -->
+                    @if (ViewBag.RecentPosts != null && ((List<_378daftarkhoneh.Models.BlogPost>)ViewBag.RecentPosts).Any())
+                    {
+                        <div class="sidebar-widget">
+                            <h5 class="widget-title">
+                                <i class="fas fa-clock me-2"></i>
+                                آخرین مطالب
+                            </h5>
+                            <div class="recent-posts">
+                                @foreach (var post in (List<_378daftarkhoneh.Models.BlogPost>)ViewBag.RecentPosts)
+                                {
+                                    <div class="recent-post-item">
+                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <div class="recent-post-image">
+                                                <img src="@post.ImageUrl" alt="@post.Title">
+                                            </div>
+                                        }
+                                        <div class="recent-post-content">
+                                            <h6>
+                                                <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })">
+                                                    @post.Title
+                                                </a>
+                                            </h6>
+                                            <small class="text-muted">
+                                                @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                            </small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Categories -->
+                    @if (ViewBag.Categories != null && ((dynamic)ViewBag.Categories).Count > 0)
+                    {
+                        <div class="sidebar-widget">
+                            <h5 class="widget-title">
+                                <i class="fas fa-folder me-2"></i>
+                                دسته‌بندی‌ها
+                            </h5>
+                            <ul class="category-list">
+                                @foreach (var category in (dynamic)ViewBag.Categories)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Category", new { id = category.Category })">
+                                            @category.Category
+                                            <span class="count">(@category.Count)</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <!-- Contact Widget -->
+                    <div class="sidebar-widget contact-widget">
+                        <h5 class="widget-title">
+                            <i class="fas fa-headset me-2"></i>
+                            نیاز به مشاوره؟
+                        </h5>
+                        <p>برای دریافت مشاوره رایگان با ما تماس بگیرید</p>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-phone me-2"></i>
+                                ۰۲۱-۲۲۷۰۹۱۳۸
+                            </p>
+                            <p>
+                                <i class="fas fa-mobile-alt me-2"></i>
+                                ۰۹۱۲۱۸۵۲۴۵۸
+                            </p>
+                        </div>
+                        <a href="/Home/Contact" class="btn btn-primary btn-sm w-100">
+                            <i class="fas fa-envelope me-2"></i>
+                            تماس با ما
+                        </a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .post-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0 60px;
+        }
+
+        .breadcrumb {
+            background: none;
+            padding: 0;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "/";
+            color: rgba(255,255,255,0.7);
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            color: white;
+        }
+
+        .breadcrumb-item.active {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .post-category {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0.9;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .post-article {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .post-featured-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .post-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #374151;
+        }
+
+        .post-body h1,
+        .post-body h2,
+        .post-body h3,
+        .post-body h4,
+        .post-body h5,
+        .post-body h6 {
+            color: var(--primary-color);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+
+        .post-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-body ul,
+        .post-body ol {
+            margin-bottom: 1.5rem;
+            padding-right: 2rem;
+        }
+
+        .post-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .share-section h5 {
+            color: var(--primary-color);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .share-btn i {
+            margin-left: 0.5rem;
+        }
+
+        .share-btn.telegram {
+            background: #0088cc;
+        }
+
+        .share-btn.whatsapp {
+            background: #25d366;
+        }
+
+        .share-btn.copy {
+            background: var(--secondary-color);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .related-posts h4 {
+            color: var(--primary-color);
+        }
+
+        .related-post-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .related-post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .related-post-image {
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .related-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .related-post-placeholder {
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .related-post-content {
+            padding: 1rem;
+        }
+
+        .related-post-content h6 a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .related-post-content h6 a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Sidebar */
+        .post-sidebar .sidebar-widget {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .widget-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .toc-widget {
+            position: sticky;
+            top: 120px;
+        }
+
+        #table-of-contents ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #table-of-contents li {
+            margin-bottom: 0.5rem;
+        }
+
+        #table-of-contents a {
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.25rem 0;
+            display: block;
+            border-right: 2px solid transparent;
+            padding-right: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        #table-of-contents a:hover,
+        #table-of-contents a.active {
+            color: var(--secondary-color);
+            border-right-color: var(--secondary-color);
+        }
+
+        .recent-post-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .recent-post-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .recent-post-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-left: 1rem;
+            flex-shrink: 0;
+        }
+
+        .recent-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recent-post-content h6 a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .recent-post-content h6 a:hover {
+            color: var(--secondary-color);
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-list a {
+            color: #64748b;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: color 0.3s ease;
+        }
+
+        .category-list a:hover {
+            color: var(--secondary-color);
+        }
+
+        .count {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .contact-widget {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .contact-widget .widget-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile Responsive */
+        @@media (max-width: 768px) {
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .share-buttons {
+                justify-content: center;
+            }
+
+            .post-article {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Copy to clipboard function
+        function copyToClipboard() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(function() {
+                // Show success message
+                const btn = document.querySelector('.share-btn.copy');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check me-1"></i>کپی شد!';
+                btn.style.background = '#27ae60';
+                
+                setTimeout(function() {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'var(--secondary-color)';
+                }, 2000);
+            });
+        }
+
+        // Generate table of contents
+        document.addEventListener('DOMContentLoaded', function() {
+            const headings = document.querySelectorAll('.post-body h1, .post-body h2, .post-body h3, .post-body h4, .post-body h5, .post-body h6');
+            const toc = document.getElementById('table-of-contents');
+            
+            if (headings.length > 0) {
+                const ul = document.createElement('ul');
+                
+                headings.forEach(function(heading, index) {
+                    // Add ID to heading for linking
+                    const id = 'heading-' + index;
+                    heading.id = id;
+                    
+                    // Create TOC item
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = '#' + id;
+                    a.textContent = heading.textContent;
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                    
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+                
+                toc.appendChild(ul);
+            } else {
+                toc.innerHTML = '<p class="text-muted">فهرست مطالب در دسترس نیست</p>';
+            }
+
+            // Highlight current section in TOC
+            window.addEventListener('scroll', function() {
+                const tocLinks = document.querySelectorAll('#table-of-contents a');
+                const scrollPos = window.scrollY + 150;
+                
+                headings.forEach(function(heading, index) {
+                    const rect = heading.getBoundingClientRect();
+                    const headingTop = rect.top + window.scrollY;
+                    
+                    if (scrollPos >= headingTop) {
+                        tocLinks.forEach(link => link.classList.remove('active'));
+                        if (tocLinks[index]) {
+                            tocLinks[index].classList.add('active');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+} 

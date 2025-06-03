@@ -1,0 +1,248 @@
+@model _378daftarkhoneh.Models.BlogPost
+
+@{
+    ViewData["Title"] = "ایجاد پست جدید";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2 class="page-title">ایجاد پست جدید</h2>
+            <div class="page-subtitle">ایجاد مطلب جدید برای وبلاگ</div>
+        </div>
+        <div class="col-auto">
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>
+                بازگشت
+            </a>
+        </div>
+    </div>
+</div>
+
+<form asp-action="Create" method="post" class="row g-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">محتوای پست</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">عنوان پست <span class="text-danger">*</span></label>
+                    <input asp-for="Title" class="form-control" placeholder="عنوان جذاب برای پست خود وارد کنید">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Summary" class="form-label">خلاصه پست <span class="text-danger">*</span></label>
+                    <textarea asp-for="Summary" class="form-control" rows="3" 
+                              placeholder="خلاصه‌ای کوتاه از محتوای پست که در لیست مطالب نمایش داده می‌شود"></textarea>
+                    <span asp-validation-for="Summary" class="text-danger"></span>
+                    <div class="form-text">حداکثر 500 کاراکتر</div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Content" class="form-label">متن کامل پست <span class="text-danger">*</span></label>
+                    <textarea asp-for="Content" class="form-control" rows="15" id="content-editor"
+                              placeholder="متن کامل پست خود را اینجا بنویسید..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">تصویر شاخص</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="آدرس تصویر (مثال: /images/blog/post1.jpg)">
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    <div class="form-text">آدرس تصویری که به عنوان تصویر شاخص پست نمایش داده می‌شود</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Publish Settings -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">تنظیمات انتشار</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input asp-for="IsPublished" class="form-check-input" type="checkbox" checked>
+                        <label asp-for="IsPublished" class="form-check-label">
+                            انتشار فوری
+                        </label>
+                    </div>
+                    <div class="form-text">در صورت فعال بودن، پست بلافاصله منتشر می‌شود</div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input asp-for="IsFeatured" class="form-check-input" type="checkbox">
+                        <label asp-for="IsFeatured" class="form-check-label">
+                            پست ویژه
+                        </label>
+                    </div>
+                    <div class="form-text">پست‌های ویژه در بخش‌های خاص نمایش داده می‌شوند</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Meta -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">اطلاعات تکمیلی</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Author" class="form-label">نویسنده</label>
+                    <input asp-for="Author" class="form-control" placeholder="نام نویسنده">
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Category" class="form-label">دسته‌بندی</label>
+                    <input asp-for="Category" class="form-control" placeholder="دسته‌بندی پست">
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                    <div class="form-text">مثال: اخبار، راهنما، قانون</div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Tags" class="form-label">برچسب‌ها</label>
+                    <input asp-for="Tags" class="form-control" placeholder="برچسب‌ها را با کاما جدا کنید">
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                    <div class="form-text">مثال: املاک، قرارداد، حقوق</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Settings -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">تنظیمات سئو</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="MetaDescription" class="form-label">توضیحات متا</label>
+                    <textarea asp-for="MetaDescription" class="form-control" rows="3" 
+                              placeholder="توضیح کوتاه برای موتورهای جستجو"></textarea>
+                    <span asp-validation-for="MetaDescription" class="text-danger"></span>
+                    <div class="form-text">حداکثر 160 کاراکتر</div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MetaKeywords" class="form-label">کلیدواژه‌های متا</label>
+                    <input asp-for="MetaKeywords" class="form-control" 
+                           placeholder="کلیدواژه‌ها را با کاما جدا کنید">
+                    <span asp-validation-for="MetaKeywords" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="card">
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>
+                        ذخیره پست
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>
+                        انصراف
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        // Character counter for summary
+        $('#Summary').on('input', function() {
+            var maxLength = 500;
+            var currentLength = $(this).val().length;
+            var remaining = maxLength - currentLength;
+            
+            if (!$(this).siblings('.char-counter').length) {
+                $(this).after('<div class="form-text char-counter"></div>');
+            }
+            
+            $(this).siblings('.char-counter').text(remaining + ' کاراکتر باقی مانده');
+            
+            if (remaining < 0) {
+                $(this).addClass('is-invalid');
+                $(this).siblings('.char-counter').addClass('text-danger');
+            } else {
+                $(this).removeClass('is-invalid');
+                $(this).siblings('.char-counter').removeClass('text-danger');
+            }
+        });
+
+        // Character counter for meta description
+        $('#MetaDescription').on('input', function() {
+            var maxLength = 160;
+            var currentLength = $(this).val().length;
+            var remaining = maxLength - currentLength;
+            
+            if (!$(this).siblings('.char-counter').length) {
+                $(this).after('<div class="form-text char-counter"></div>');
+            }
+            
+            $(this).siblings('.char-counter').text(remaining + ' کاراکتر باقی مانده');
+            
+            if (remaining < 0) {
+                $(this).addClass('is-invalid');
+                $(this).siblings('.char-counter').addClass('text-danger');
+            } else {
+                $(this).removeClass('is-invalid');
+                $(this).siblings('.char-counter').removeClass('text-danger');
+            }
+        });
+
+        // Generate slug from title
+        $('#Title').on('input', function() {
+            var title = $(this).val();
+            // Simple slug generation (you can enhance this)
+            var slug = title.toLowerCase()
+                          .replace(/\s+/g, '-')
+                          .replace(/[^\w\-]+/g, '')
+                          .replace(/\-\-+/g, '-')
+                          .replace(/^-+/, '')
+                          .replace(/-+$/, '');
+            
+            if (!$('#slug-preview').length) {
+                $(this).after('<div class="form-text" id="slug-preview"></div>');
+            }
+            
+            if (slug) {
+                $('#slug-preview').html('<strong>آدرس URL:</strong> /blog/' + slug);
+            } else {
+                $('#slug-preview').text('');
+            }
+        });
+
+        // Form validation
+        $('form').submit(function(e) {
+            var isValid = true;
+            
+            // Check required fields
+            var requiredFields = ['#Title', '#Summary', '#Content'];
+            requiredFields.forEach(function(field) {
+                if (!$(field).val().trim()) {
+                    $(field).addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $(field).removeClass('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('لطفاً تمام فیلدهای الزامی را پر کنید');
+            }
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

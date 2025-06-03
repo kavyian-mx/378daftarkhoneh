@@ -1,0 +1,229 @@
+@model IEnumerable<_378daftarkhoneh.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "مدیریت وبلاگ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2 class="page-title">مدیریت وبلاگ</h2>
+            <div class="page-subtitle">مدیریت مطالب و پست‌های وبلاگ</div>
+        </div>
+        <div class="col-auto">
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>
+                پست جدید
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="searchString" 
+                       placeholder="جستجو در عنوان، خلاصه یا متن..." 
+                       value="@ViewBag.SearchString">
+            </div>
+            <div class="col-md-3">
+                <select name="category" class="form-select">
+                    <option value="">همه دسته‌ها</option>
+                    @if (ViewBag.Categories != null)
+                    {
+                        @foreach (string category in ViewBag.Categories)
+                        {
+                            <option value="@category" selected="@(ViewBag.Category == category)">@category</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="isPublished" class="form-select">
+                    <option value="">همه وضعیت‌ها</option>
+                    <option value="true" selected="@(ViewBag.IsPublished == true)">منتشر شده</option>
+                    <option value="false" selected="@(ViewBag.IsPublished == false)">پیش‌نویس</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group w-100">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fas fa-search me-1"></i>
+                        جستجو
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-1"></i>
+                        پاک کردن
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Posts Table -->
+<div class="card">
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>عنوان</th>
+                            <th>دسته‌بندی</th>
+                            <th>نویسنده</th>
+                            <th>وضعیت</th>
+                            <th>بازدید</th>
+                            <th>تاریخ ایجاد</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var post in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <img src="@post.ImageUrl" alt="@post.Title" 
+                                                 class="avatar avatar-sm me-3" style="object-fit: cover;">
+                                        }
+                                        <div>
+                                            <strong>@post.Title</strong>
+                                            @if (post.IsFeatured)
+                                            {
+                                                <span class="badge bg-warning ms-2">ویژه</span>
+                                            }
+                                            <br>
+                                            <small class="text-muted">@post.Summary.Substring(0, Math.Min(post.Summary.Length, 80))...</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(post.Category))
+                                    {
+                                        <span class="badge bg-info">@post.Category</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">بدون دسته</span>
+                                    }
+                                </td>
+                                <td>@post.Author</td>
+                                <td>
+                                    @if (post.IsPublished)
+                                    {
+                                        <span class="badge bg-success">منتشر شده</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">پیش‌نویس</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">@post.ViewCount</span>
+                                </td>
+                                <td>
+                                    <small>@post.CreatedAt.ToString("yyyy/MM/dd")</small>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("Details", new { id = post.Id })" 
+                                           class="btn btn-sm btn-outline-info" title="نمایش">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { id = post.Id })" 
+                                           class="btn btn-sm btn-outline-primary" title="ویرایش">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="post" action="@Url.Action("TogglePublished", new { id = post.Id })" 
+                                              style="display: inline;">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-warning" 
+                                                    title="@(post.IsPublished ? "عدم انتشار" : "انتشار")">
+                                                <i class="fas fa-@(post.IsPublished ? "eye-slash" : "eye")"></i>
+                                            </button>
+                                        </form>
+                                        <form method="post" action="@Url.Action("ToggleFeatured", new { id = post.Id })" 
+                                              style="display: inline;">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary" 
+                                                    title="@(post.IsFeatured ? "حذف از ویژه" : "اضافه به ویژه")">
+                                                <i class="fas fa-star@(post.IsFeatured ? "" : "-o")"></i>
+                                            </button>
+                                        </form>
+                                        <a href="@Url.Action("Delete", new { id = post.Id })" 
+                                           class="btn btn-sm btn-outline-danger" title="حذف">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            @if (ViewBag.TotalPages > 1)
+            {
+                <nav aria-label="صفحه‌بندی">
+                    <ul class="pagination justify-content-center mt-4">
+                        @if (ViewBag.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="?page=@(ViewBag.CurrentPage - 1)&searchString=@ViewBag.SearchString&category=@ViewBag.Category&isPublished=@ViewBag.IsPublished">
+                                    قبلی
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="?page=@i&searchString=@ViewBag.SearchString&category=@ViewBag.Category&isPublished=@ViewBag.IsPublished">
+                                    @i
+                                </a>
+                            </li>
+                        }
+
+                        @if (ViewBag.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="?page=@(ViewBag.CurrentPage + 1)&searchString=@ViewBag.SearchString&category=@ViewBag.Category&isPublished=@ViewBag.IsPublished">
+                                    بعدی
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-blog fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">هیچ پستی یافت نشد</h5>
+                <p class="text-muted">اولین پست وبلاگ خود را ایجاد کنید</p>
+                <a href="@Url.Action("Create")" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>
+                    ایجاد پست جدید
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-submit form on filter change
+        $('select[name="category"], select[name="isPublished"]').change(function() {
+            $(this).closest('form').submit();
+        });
+    </script>
+} 

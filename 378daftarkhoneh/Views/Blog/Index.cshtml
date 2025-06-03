@@ -1,0 +1,724 @@
+@model IEnumerable<_378daftarkhoneh.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "وبلاگ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blog-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="hero-title">وبلاگ دفترخانه ۳۷۸</h1>
+                <p class="hero-subtitle">آخرین اخبار، مقالات و راهنمای تخصصی اسناد رسمی</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="search-box">
+                    <form method="get" action="@Url.Action("Search")">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="جستجو در مقالات..." value="@ViewBag.SearchQuery">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-content py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                @if (ViewBag.SearchQuery != null)
+                {
+                    <div class="search-results mb-4">
+                        <h4>نتایج جستجو برای "<span class="text-primary">@ViewBag.SearchQuery</span>"</h4>
+                        <p class="text-muted">@ViewBag.SearchResults نتیجه یافت شد</p>
+                    </div>
+                }
+
+                @if (ViewBag.CategoryName != null)
+                {
+                    <div class="category-header mb-4">
+                        <h4>دسته‌بندی: <span class="text-primary">@ViewBag.CategoryName</span></h4>
+                    </div>
+                }
+
+                <!-- Featured Posts -->
+                @if (ViewBag.FeaturedPosts != null && ((List<_378daftarkhoneh.Models.BlogPost>)ViewBag.FeaturedPosts).Any() && ViewBag.SearchQuery == null && ViewBag.CategoryName == null)
+                {
+                    <div class="featured-posts mb-5">
+                        <h3 class="section-title mb-4">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            مطالب ویژه
+                        </h3>
+                        <div class="row g-4">
+                            @foreach (var post in (List<_378daftarkhoneh.Models.BlogPost>)ViewBag.FeaturedPosts)
+                            {
+                                <div class="col-md-6">
+                                    <article class="featured-card">
+                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <div class="featured-image">
+                                                <img src="@post.ImageUrl" alt="@post.Title" class="img-fluid">
+                                                <div class="featured-badge">ویژه</div>
+                                            </div>
+                                        }
+                                        <div class="featured-content">
+                                            <div class="post-meta">
+                                                @if (!string.IsNullOrEmpty(post.Category))
+                                                {
+                                                    <span class="category">@post.Category</span>
+                                                }
+                                                <span class="date">@((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))</span>
+                                            </div>
+                                            <h4>
+                                                <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })">
+                                                    @post.Title
+                                                </a>
+                                            </h4>
+                                            <p>@post.Summary</p>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!-- Posts Grid -->
+                @if (Model.Any())
+                {
+                    <div class="posts-grid">
+                        <div class="row g-4">
+                            @foreach (var post in Model)
+                            {
+                                <div class="col-md-6">
+                                    <article class="blog-card">
+                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <div class="blog-image">
+                                                <img src="@post.ImageUrl" alt="@post.Title" class="img-fluid">
+                                                <div class="blog-overlay">
+                                                    <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })" 
+                                                       class="read-more-btn">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="blog-image-placeholder">
+                                                <i class="fas fa-file-alt"></i>
+                                            </div>
+                                        }
+                                        
+                                        <div class="blog-content">
+                                            <div class="blog-meta">
+                                                @if (!string.IsNullOrEmpty(post.Category))
+                                                {
+                                                    <a href="@Url.Action("Category", new { id = post.Category })" class="blog-category">
+                                                        @post.Category
+                                                    </a>
+                                                }
+                                                <span class="blog-date">
+                                                    <i class="fas fa-calendar-alt me-1"></i>
+                                                    @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                                </span>
+                                            </div>
+                                            
+                                            <h3 class="blog-title">
+                                                <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })">
+                                                    @post.Title
+                                                </a>
+                                            </h3>
+                                            
+                                            <p class="blog-summary">@post.Summary</p>
+                                            
+                                            <div class="blog-footer">
+                                                <div class="blog-author">
+                                                    <i class="fas fa-user me-1"></i>
+                                                    @post.Author
+                                                </div>
+                                                <div class="blog-stats">
+                                                    <span class="view-count">
+                                                        <i class="fas fa-eye me-1"></i>
+                                                        @post.ViewCount
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    @if (ViewBag.TotalPages > 1)
+                    {
+                        <nav aria-label="صفحه‌بندی" class="mt-5">
+                            <ul class="pagination justify-content-center">
+                                @if (ViewBag.HasPreviousPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=@(ViewBag.CurrentPage - 1)&searchString=@ViewBag.SearchString&category=@ViewBag.Category">
+                                            <i class="fas fa-arrow-right me-1"></i>
+                                            قبلی
+                                        </a>
+                                    </li>
+                                }
+
+                                @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+                                {
+                                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                        <a class="page-link" href="?page=@i&searchString=@ViewBag.SearchString&category=@ViewBag.Category">
+                                            @i
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (ViewBag.HasNextPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=@(ViewBag.CurrentPage + 1)&searchString=@ViewBag.SearchString&category=@ViewBag.Category">
+                                            بعدی
+                                            <i class="fas fa-arrow-left ms-1"></i>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
+                }
+                else
+                {
+                    <div class="no-posts text-center py-5">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">هیچ مطلبی یافت نشد</h4>
+                        <p class="text-muted">لطفاً کلیدواژه دیگری را امتحان کنید یا به صفحه اصلی بازگردید</p>
+                        <a href="@Url.Action("Index")" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>
+                            صفحه اصلی وبلاگ
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <aside class="blog-sidebar">
+                    <!-- Categories -->
+                    @if (ViewBag.Categories != null && ((dynamic)ViewBag.Categories).Count > 0)
+                    {
+                        <div class="sidebar-widget">
+                            <h5 class="widget-title">دسته‌بندی‌ها</h5>
+                            <ul class="category-list">
+                                @foreach (var category in (dynamic)ViewBag.Categories)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Category", new { id = category.Category })">
+                                            @category.Category
+                                            <span class="count">(@category.Count)</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <!-- Recent Posts -->
+                    @if (ViewBag.RecentPosts != null && ((List<_378daftarkhoneh.Models.BlogPost>)ViewBag.RecentPosts).Any())
+                    {
+                        <div class="sidebar-widget">
+                            <h5 class="widget-title">آخرین مطالب</h5>
+                            <div class="recent-posts">
+                                @foreach (var post in (List<_378daftarkhoneh.Models.BlogPost>)ViewBag.RecentPosts)
+                                {
+                                    <div class="recent-post-item">
+                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <div class="recent-post-image">
+                                                <img src="@post.ImageUrl" alt="@post.Title">
+                                            </div>
+                                        }
+                                        <div class="recent-post-content">
+                                            <h6>
+                                                <a href="@Url.Action("Details", new { id = post.Slug ?? post.Id.ToString() })">
+                                                    @post.Title
+                                                </a>
+                                            </h6>
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                @((post.PublishedAt ?? post.CreatedAt).ToString("yyyy/MM/dd"))
+                                            </small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Contact Widget -->
+                    <div class="sidebar-widget contact-widget">
+                        <h5 class="widget-title">تماس با ما</h5>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-phone text-primary me-2"></i>
+                                ۰۲۱-۲۲۷۰۹۱۳۸
+                            </p>
+                            <p>
+                                <i class="fas fa-mobile-alt text-primary me-2"></i>
+                                ۰۹۱۲۱۸۵۲۴۵۸
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope text-primary me-2"></i>
+                                info@daftar378.ir
+                            </p>
+                        </div>
+                        <a href="/Home/Contact" class="btn btn-primary btn-sm w-100">
+                            <i class="fas fa-envelope me-2"></i>
+                            ارسال پیام
+                        </a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box .form-control {
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 25px 0 0 25px;
+        }
+
+        .search-box .form-control::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-box .btn {
+            border-radius: 0 25px 25px 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .featured-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--warning-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .featured-content {
+            padding: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .category {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .date {
+            color: #64748b;
+        }
+
+        .featured-content h4 a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .featured-content h4 a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Blog Cards - Same as homepage */
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .blog-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover .blog-overlay {
+            opacity: 1;
+        }
+
+        .read-more-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            transform: scale(0.8);
+        }
+
+        .blog-card:hover .read-more-btn {
+            transform: scale(1);
+        }
+
+        .blog-image-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .blog-category {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .blog-date {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .blog-title {
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .blog-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .blog-title a:hover {
+            color: var(--secondary-color);
+        }
+
+        .blog-summary {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .blog-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+        }
+
+        .blog-author,
+        .blog-stats {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .view-count {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Sidebar */
+        .sidebar-widget {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .widget-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-list a {
+            color: #64748b;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: color 0.3s ease;
+        }
+
+        .category-list a:hover {
+            color: var(--secondary-color);
+        }
+
+        .count {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .recent-post-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .recent-post-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .recent-post-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-left: 1rem;
+            flex-shrink: 0;
+        }
+
+        .recent-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recent-post-content h6 a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .recent-post-content h6 a:hover {
+            color: var(--secondary-color);
+        }
+
+        .contact-widget {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .contact-widget .widget-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pagination */
+        .pagination .page-link {
+            color: var(--primary-color);
+            border: 1px solid #e2e8f0;
+            margin: 0 2px;
+            border-radius: 8px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .pagination .page-link:hover {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Search Results */
+        .search-results {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .category-header {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        @@media (max-width: 768px) {
+            .blog-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .blog-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                margin-top: 2rem;
+            }
+        }
+    </style>
+} 

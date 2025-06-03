@@ -1,0 +1,304 @@
+@model _378daftarkhoneh.Models.BlogPost
+
+@{
+    ViewData["Title"] = "جزئیات پست - " + Model.Title;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2 class="page-title">جزئیات پست</h2>
+            <div class="page-subtitle">مشاهده جزئیات کامل پست وبلاگ</div>
+        </div>
+        <div class="col-auto">
+            <div class="btn-group">
+                <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">
+                    <i class="fas fa-edit me-2"></i>
+                    ویرایش
+                </a>
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    بازگشت
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="post-image mb-4">
+                        <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded" style="max-height: 400px; width: 100%; object-fit: cover;">
+                    </div>
+                }
+
+                <h1 class="post-title mb-3">@Model.Title</h1>
+                
+                <div class="post-summary mb-4 p-3 bg-light rounded">
+                    <h6 class="text-muted mb-2">خلاصه:</h6>
+                    <p class="mb-0">@Model.Summary</p>
+                </div>
+
+                <div class="post-content">
+                    <h6 class="text-muted mb-3">محتوای کامل:</h6>
+                    <div class="content-body">
+                        @Html.Raw(Model.Content.Replace("\n", "<br>"))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Post Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    اطلاعات پست
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="info-group mb-3">
+                    <label class="text-muted small">وضعیت انتشار:</label>
+                    <div>
+                        @if (Model.IsPublished)
+                        {
+                            <span class="badge bg-success">منتشر شده</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">پیش‌نویس</span>
+                        }
+                        
+                        @if (Model.IsFeatured)
+                        {
+                            <span class="badge bg-warning ms-2">ویژه</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="info-group mb-3">
+                    <label class="text-muted small">نویسنده:</label>
+                    <div>@Model.Author</div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Category))
+                {
+                    <div class="info-group mb-3">
+                        <label class="text-muted small">دسته‌بندی:</label>
+                        <div>
+                            <span class="badge bg-info">@Model.Category</span>
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Tags))
+                {
+                    <div class="info-group mb-3">
+                        <label class="text-muted small">برچسب‌ها:</label>
+                        <div>
+                            @foreach (var tag in Model.Tags.Split(',').Select(t => t.Trim()))
+                            {
+                                <span class="badge bg-light text-dark me-1 mb-1">@tag</span>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="info-group mb-3">
+                    <label class="text-muted small">تعداد بازدید:</label>
+                    <div>
+                        <span class="badge bg-primary">@Model.ViewCount</span>
+                    </div>
+                </div>
+
+                <div class="info-group mb-3">
+                    <label class="text-muted small">تاریخ ایجاد:</label>
+                    <div>@Model.CreatedAt.ToString("yyyy/MM/dd - HH:mm")</div>
+                </div>
+
+                @if (Model.UpdatedAt.HasValue)
+                {
+                    <div class="info-group mb-3">
+                        <label class="text-muted small">آخرین ویرایش:</label>
+                        <div>@Model.UpdatedAt.Value.ToString("yyyy/MM/dd - HH:mm")</div>
+                    </div>
+                }
+
+                @if (Model.PublishedAt.HasValue)
+                {
+                    <div class="info-group mb-3">
+                        <label class="text-muted small">تاریخ انتشار:</label>
+                        <div>@Model.PublishedAt.Value.ToString("yyyy/MM/dd - HH:mm")</div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Slug))
+                {
+                    <div class="info-group mb-3">
+                        <label class="text-muted small">اسلاگ URL:</label>
+                        <div>
+                            <code class="small">@Model.Slug</code>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- SEO Information -->
+        @if (!string.IsNullOrEmpty(Model.MetaDescription) || !string.IsNullOrEmpty(Model.MetaKeywords))
+        {
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-search me-2"></i>
+                        اطلاعات سئو
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.MetaDescription))
+                    {
+                        <div class="info-group mb-3">
+                            <label class="text-muted small">توضیحات متا:</label>
+                            <div class="small">@Model.MetaDescription</div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.MetaKeywords))
+                    {
+                        <div class="info-group mb-3">
+                            <label class="text-muted small">کلیدواژه‌های متا:</label>
+                            <div class="small">@Model.MetaKeywords</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bolt me-2"></i>
+                    عملیات سریع
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit me-2"></i>
+                        ویرایش پست
+                    </a>
+                    
+                    <form method="post" action="@Url.Action("TogglePublished", new { id = Model.Id })" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning btn-sm w-100">
+                            <i class="fas fa-@(Model.IsPublished ? "eye-slash" : "eye") me-2"></i>
+                            @(Model.IsPublished ? "عدم انتشار" : "انتشار")
+                        </button>
+                    </form>
+                    
+                    <form method="post" action="@Url.Action("ToggleFeatured", new { id = Model.Id })" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-info btn-sm w-100">
+                            <i class="fas fa-star me-2"></i>
+                            @(Model.IsFeatured ? "حذف از ویژه" : "اضافه به ویژه")
+                        </button>
+                    </form>
+
+                    @if (!string.IsNullOrEmpty(Model.Slug))
+                    {
+                        <a href="/Blog/@Model.Slug" target="_blank" class="btn btn-success btn-sm">
+                            <i class="fas fa-external-link-alt me-2"></i>
+                            مشاهده در سایت
+                        </a>
+                    }
+                    
+                    <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-trash me-2"></i>
+                        حذف پست
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .post-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .content-body {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .content-body h1,
+        .content-body h2,
+        .content-body h3,
+        .content-body h4,
+        .content-body h5,
+        .content-body h6 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .content-body p {
+            margin-bottom: 1rem;
+        }
+
+        .content-body ul,
+        .content-body ol {
+            margin-bottom: 1rem;
+            padding-right: 2rem;
+        }
+
+        .info-group label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .info-group {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .post-image {
+            text-align: center;
+        }
+
+        .post-summary {
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: #e83e8c;
+        }
+    </style>
+} 

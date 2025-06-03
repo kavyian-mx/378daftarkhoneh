@@ -25,6 +25,21 @@ public class HomeController : Controller
             .OrderByDescending(f => f.UploadedAt)
             .Take(6)
             .ToListAsync();
+
+        // Get latest blog posts for homepage
+        ViewBag.LatestBlogPosts = await _context.BlogPosts
+            .Where(p => p.IsPublished)
+            .OrderByDescending(p => p.PublishedAt ?? p.CreatedAt)
+            .Take(3)
+            .ToListAsync();
+
+        // Get featured blog posts
+        ViewBag.FeaturedBlogPosts = await _context.BlogPosts
+            .Where(p => p.IsPublished && p.IsFeatured)
+            .OrderByDescending(p => p.PublishedAt ?? p.CreatedAt)
+            .Take(2)
+            .ToListAsync();
+
         return View();
     }
 
