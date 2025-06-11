@@ -1,38 +1,42 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _378daftarkhoneh.Models
 {
     public class FileUpload
     {
+        [Key]
         public int Id { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "عنوان فایل الزامی است")]
         [Display(Name = "عنوان")]
-        public required string Title { get; set; }
-        
+        public string Title { get; set; } = string.Empty;
+
         [Display(Name = "توضیحات")]
         public string? Description { get; set; }
-        
-        [Required]
+
+        // این‌ها در کنترلر مقدار می‌گیرند، پس [Required] نباید داشته باشند
         [Display(Name = "نام فایل")]
-        public required string FileName { get; set; }
-        
+        public string FileName { get; set; } = string.Empty;
+
         [Display(Name = "مسیر فایل")]
-        public required string FilePath { get; set; }
-        
+        public string FilePath { get; set; } = string.Empty;
+
         [Display(Name = "حجم فایل")]
         public long FileSize { get; set; }
-        
+
         [Display(Name = "نوع فایل")]
-        public required string FileType { get; set; }
-        
+        public string FileType { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "دسته‌بندی الزامی است")]
         [Display(Name = "دسته‌بندی")]
         public int CategoryId { get; set; }
-        
+
+        [Display(Name = "تاریخ بارگذاری")]
         public DateTime UploadedAt { get; set; } = DateTime.Now;
-        
+
         // Navigation property
-        public virtual required Category Category { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category? Category { get; set; }
     }
-} 
+}

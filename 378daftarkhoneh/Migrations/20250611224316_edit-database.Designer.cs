@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _378daftarkhoneh.Data;
 
@@ -10,9 +11,11 @@ using _378daftarkhoneh.Data;
 namespace _378daftarkhoneh.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250611224316_edit-database")]
+    partial class editdatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -96,13 +99,13 @@ namespace _378daftarkhoneh.Migrations
                             Author = "دفترخانه ۳۷۸",
                             Category = "اسناد املاک",
                             Content = "خرید و فروش املاک یکی از مهم‌ترین تصمیمات مالی در زندگی هر فرد محسوب می‌شود. این فرآیند پیچیده نیازمند رعایت دقیق قوانین و مقررات است تا از حقوق طرفین معامله محافظت شود.\n\nمراحل اصلی معامله املاک:\n\n1. بررسی اسناد ملک: قبل از هر اقدامی، بررسی دقیق سند مالکیت، استعلام از ثبت اسناد و اطمینان از عدم وجود محدودیت قانونی ضروری است.\n\n2. تنظیم قرارداد: قرارداد باید شامل تمام جزئیات ملک، قیمت، شرایط پرداخت و تعهدات طرفین باشد.\n\n3. پرداخت و انتقال: انجام مراحل نقل و انتقال در دفترخانه با حضور طرفین و ارائه مدارک لازم.\n\nمدارک مورد نیاز:\n- اصل سند مالکیت\n- شناسنامه و کارت ملی طرفین\n- گواهی عدم محکومیت\n- نقشه UTM ملک\n- مفاصاحساب آب، برق و گاز\n\nنکات مهم:\n- حتماً از صحت اسناد اطمینان حاصل کنید\n- قیمت معامله را متناسب با نرخ بازار تعیین کنید\n- از خدمات مشاورین حقوقی استفاده کنید",
-                            CreatedAt = new DateTime(2025, 5, 13, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4617),
+                            CreatedAt = new DateTime(2025, 5, 13, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7290),
                             ImageUrl = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                             IsFeatured = true,
                             IsPublished = true,
                             MetaDescription = "راهنمای جامع خرید و فروش املاک، مراحل قانونی، مدارک لازم و نکات مهم معامله",
                             MetaKeywords = "خرید املاک، فروش املاک، دفترخانه، سند ملک",
-                            PublishedAt = new DateTime(2025, 5, 13, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4622),
+                            PublishedAt = new DateTime(2025, 5, 13, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7296),
                             Slug = "guide-real-estate-transaction",
                             Summary = "تمام مراحل قانونی خرید و فروش املاک از ابتدا تا انتها، مدارک مورد نیاز و نکات مهم برای طرفین معامله.",
                             Tags = "املاک، خرید، فروش، سند، دفترخانه",
@@ -115,13 +118,13 @@ namespace _378daftarkhoneh.Migrations
                             Author = "دفترخانه ۳۷۸",
                             Category = "اسناد حقوقی",
                             Content = "وکالتنامه سندی است که به موجب آن شخصی (موکل) اختیار انجام کاری را به شخص دیگری (وکیل) می‌دهد. این سند در بسیاری از امور اداری و حقوقی کاربرد دارد.\n\nانواع وکالتنامه:\n\n1. وکالتنامه عمومی: شامل تمام اختیارات قانونی و اداری موکل\n2. وکالتنامه خاص: محدود به انجام کار یا اختیار خاص\n3. وکالتنامه بانکی: ویژه امور بانکی و مالی\n4. وکالتنامه املاک: مربوط به معاملات ملکی\n\nشرایط تنظیم:\n- حضور موکل در دفترخانه\n- ارائه مدارک شناسایی معتبر\n- تعیین دقیق حدود اختیارات وکیل\n- مشخص کردن مدت زمان اعتبار\n\nکاربردهای رایج:\n- انجام امور بانکی\n- فروش یا خرید ملک\n- دریافت مدارک اداری\n- حضور در ادارات دولتی\n\nنکات مهم:\n- وکالتنامه باید دقیق و شفاف نوشته شود\n- موکل می‌تواند در هر زمان وکالت را لغو کند\n- وکیل باید طبق حدود مندرج در وکالتنامه عمل کند",
-                            CreatedAt = new DateTime(2025, 5, 18, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4632),
+                            CreatedAt = new DateTime(2025, 5, 18, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7304),
                             ImageUrl = "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                             IsFeatured = true,
                             IsPublished = true,
                             MetaDescription = "راهنمای کامل انواع وکالتنامه، شرایط تنظیم و کاربردهای آنها در امور حقوقی",
                             MetaKeywords = "وکالتنامه، انواع وکالتنامه، اسناد رسمی، حقوق",
-                            PublishedAt = new DateTime(2025, 5, 18, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4633),
+                            PublishedAt = new DateTime(2025, 5, 18, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7305),
                             Slug = "types-of-power-of-attorney",
                             Summary = "شناخت انواع مختلف وکالتنامه، شرایط تنظیم، اعتبار زمانی و کاربردهای هر یک در امور مختلف حقوقی و اداری.",
                             Tags = "وکالتنامه، حقوق، اسناد رسمی، اختیار",
@@ -134,13 +137,13 @@ namespace _378daftarkhoneh.Migrations
                             Author = "دفترخانه ۳۷۸",
                             Category = "ازدواج و طلاق",
                             Content = "شروط ضمن عقد ازدواج یکی از مهم‌ترین ابزارهای حمایت از حقوق زوجین محسوب می‌شود. این شروط در زمان تنظیم عقد ازدواج اعمال شده و دارای اعتبار قانونی است.\n\nانواع شروط مجاز:\n\n1. شروط مالی:\n- تعیین میزان مهریه\n- نحوه تقسیم هزینه‌های زندگی\n- شرایط کار و فعالیت زن\n\n2. شروط اجتماعی:\n- تحصیل زن\n- حق انتخاب محل سکونت\n- حق سفر و مسافرت\n\n3. شروط خانوادگی:\n- تعداد فرزندان\n- نحوه تربیت فرزندان\n- روابط با خانواده‌ها\n\nشروط مهم و کاربردی:\n- حق طلاق برای زن در شرایط خاص\n- ممنوعیت ازدواج مجدد مرد بدون رضایت زن\n- تعیین میزان نفقه در صورت جدایی\n- حق تعیین محل سکونت\n\nنکات حقوقی:\n- شروط نباید مخالف شرع و قانون باشد\n- تمام شروط باید واضح و قابل اجرا نوشته شود\n- زوجین می‌توانند بعد از ازدواج شروط جدید اضافه کنند\n\nاهمیت شروط ضمن عقد:\n- حمایت از حقوق زن\n- جلوگیری از اختلافات آینده\n- ایجاد شفافیت در روابط زناشویی",
-                            CreatedAt = new DateTime(2025, 5, 23, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4639),
+                            CreatedAt = new DateTime(2025, 5, 23, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7308),
                             ImageUrl = "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                             IsFeatured = false,
                             IsPublished = true,
                             MetaDescription = "راهنمای تنظیم شروط ضمن عقد ازدواج، انواع شروط مجاز و نکات حقوقی مهم",
                             MetaKeywords = "شروط ضمن عقد، ازدواج، عقد نکاح، حقوق زوجین",
-                            PublishedAt = new DateTime(2025, 5, 23, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4640),
+                            PublishedAt = new DateTime(2025, 5, 23, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7309),
                             Slug = "marriage-contract-conditions",
                             Summary = "راهنمای تنظیم شروط ضمن عقد ازدواج، انواع شروط مجاز، اثرات حقوقی و اهمیت این شروط در حفظ حقوق زوجین.",
                             Tags = "ازدواج، شروط ضمن عقد، حقوق زوجین، عقد نکاح",
@@ -153,13 +156,13 @@ namespace _378daftarkhoneh.Migrations
                             Author = "دفترخانه ۳۷۸",
                             Category = "اطلاعات عمومی",
                             Content = "تعرفه خدمات دفترخانه طبق آخرین مصوبات سازمان ثبت اسناد و املاک کشور برای سال ۱۴۰۳ به شرح زیر است:\n\nخدمات اسناد رسمی:\n\n1. تنظیم سند رسمی:\n- سند بیع (خرید و فروش): ۳/۰ درصد ارزش معامله\n- سند هبه: ۲/۰ درصد ارزش ملک\n- سند اجاره: حداقل ۵۰۰,۰۰۰ ریال\n- سند رهن: ۱/۵ درصد ارزش رهن\n\n2. وکالتنامه:\n- وکالتنامه عمومی: ۱,۵۰۰,۰۰۰ ریال\n- وکالتنامه خاص: ۱,۰۰۰,۰۰۰ ریال\n- وکالتنامه بانکی: ۸۰۰,۰۰۰ ریال\n- وکالتنامه امور مالیاتی: ۶۰۰,۰۰۰ ریال\n\n3. گواهی امضا:\n- گواهی امضا عادی: ۳۰۰,۰۰۰ ریال\n- گواهی امضا بانکی: ۴۰۰,۰۰۰ ریال\n- گواهی امضا ویژه: ۵۰۰,۰۰۰ ریال\n\n4. اقرارنامه و تعهدنامه:\n- اقرارنامه عادی: ۷۰۰,۰۰۰ ریال\n- تعهدنامه: ۸۰۰,۰۰۰ ریال\n- رضایتنامه: ۶۰۰,۰۰۰ ریال\n\n5. عقد ازدواج:\n- تنظیم عقد ازدواج: ۱,۲۰۰,۰۰۰ ریال\n- شروط ضمن عقد: ۳۰۰,۰۰۰ ریال\n- طلاق توافقی: ۲,۰۰۰,۰۰۰ ریال\n\nهزینه‌های اضافی:\n- حق‌الثبت اسناد\n- عوارض شهرداری\n- مالیات بر ارزش افزوده\n\nنکته مهم: تمام مبالغ فوق طبق آخرین مصوبات رسمی بوده و ممکن است تغییر کند.",
-                            CreatedAt = new DateTime(2025, 5, 28, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4645),
+                            CreatedAt = new DateTime(2025, 5, 28, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7312),
                             ImageUrl = "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                             IsFeatured = true,
                             IsPublished = true,
                             MetaDescription = "لیست کامل تعرفه خدمات دفترخانه سال ۱۴۰۳ شامل اسناد، وکالتنامه و گواهی امضا",
                             MetaKeywords = "تعرفه دفترخانه، هزینه خدمات، ۱۴۰۳، اسناد رسمی",
-                            PublishedAt = new DateTime(2025, 5, 28, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4646),
+                            PublishedAt = new DateTime(2025, 5, 28, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7313),
                             Slug = "notary-office-fees-1403",
                             Summary = "لیست کامل تعرفه‌های رسمی خدمات دفترخانه شامل تنظیم اسناد، گواهی امضا، وکالتنامه و سایر خدمات طبق مصوبات سال ۱۴۰۳.",
                             Tags = "تعرفه، هزینه، خدمات دفترخانه، ۱۴۰۳",
@@ -202,7 +205,7 @@ namespace _378daftarkhoneh.Migrations
                         {
                             Id = 1,
                             Color = "#3498db",
-                            CreatedAt = new DateTime(2025, 6, 12, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4575),
+                            CreatedAt = new DateTime(2025, 6, 12, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7252),
                             Description = "خرید، فروش، اجاره املاک",
                             Icon = "fas fa-home",
                             Name = "اسناد املاک"
@@ -211,7 +214,7 @@ namespace _378daftarkhoneh.Migrations
                         {
                             Id = 2,
                             Color = "#e74c3c",
-                            CreatedAt = new DateTime(2025, 6, 12, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4579),
+                            CreatedAt = new DateTime(2025, 6, 12, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7255),
                             Description = "انواع وکالتنامه‌ها",
                             Icon = "fas fa-gavel",
                             Name = "وکالتنامه"
@@ -220,7 +223,7 @@ namespace _378daftarkhoneh.Migrations
                         {
                             Id = 3,
                             Color = "#27ae60",
-                            CreatedAt = new DateTime(2025, 6, 12, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4581),
+                            CreatedAt = new DateTime(2025, 6, 12, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7257),
                             Description = "انواع اقرارنامه‌ها",
                             Icon = "fas fa-file-signature",
                             Name = "اقرارنامه"
@@ -229,7 +232,7 @@ namespace _378daftarkhoneh.Migrations
                         {
                             Id = 4,
                             Color = "#f39c12",
-                            CreatedAt = new DateTime(2025, 6, 12, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4582),
+                            CreatedAt = new DateTime(2025, 6, 12, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7258),
                             Description = "شروط ضمن عقد، طلاق",
                             Icon = "fas fa-ring",
                             Name = "ازدواج و طلاق"
@@ -238,7 +241,7 @@ namespace _378daftarkhoneh.Migrations
                         {
                             Id = 5,
                             Color = "#9b59b6",
-                            CreatedAt = new DateTime(2025, 6, 12, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4584),
+                            CreatedAt = new DateTime(2025, 6, 12, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7260),
                             Description = "گواهی امضا، استعلام",
                             Icon = "fas fa-certificate",
                             Name = "گواهی و استعلام"
@@ -354,7 +357,7 @@ namespace _378daftarkhoneh.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 6, 12, 2, 18, 13, 978, DateTimeKind.Local).AddTicks(4306),
+                            CreatedAt = new DateTime(2025, 6, 12, 2, 13, 14, 465, DateTimeKind.Local).AddTicks(7064),
                             Email = "admin@notary378.ir",
                             FirstName = "مدیر",
                             IsActive = true,

@@ -657,12 +657,11 @@
 
     <!-- Main Navigation -->
     <nav class="navbar navbar-expand-lg">
-            <div class="container">
+        <div class="container">
             <a class="navbar-brand" href="/">
-                <div class="logo-container">
-                    <div class="logo-icon">
+                <div class="logo-container d-flex align-items-center">
+                    <div class="logo-icon me-2">
                         <img style="width: 90px;height: 90px" src="~/Assets/Images/logo.png" alt="دفترخانه اسناد رسمی ۳۷۸" />
-                       
                     </div>
                     <div class="logo-text">
                         <h4 class="logo-title">دفترخانه ۳۷۸</h4>
@@ -672,136 +671,82 @@
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
-                    </button>
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
+
                     <li class="nav-item">
                         <a class="nav-link" href="/">
-                            <i class="fas fa-home"></i>
-                            صفحه اصلی
+                            <i class="fas fa-home"></i> صفحه اصلی
                         </a>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#">
-                            <i class="fas fa-cogs"></i>
-                            خدمات
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="fas fa-cogs"></i> خدمات
                         </a>
-                            <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/Home/RealEstateDocuments">
-                                <i class="fas fa-building"></i>اسناد املاک
-                            </a></li>
-                            <li><a class="dropdown-item" href="/Home/LegalDocuments">
-                                <i class="fas fa-balance-scale"></i>اسناد حقوقی
-                            </a></li>
-                            <li><a class="dropdown-item" href="/Home/MarriageServices">
-                                <i class="fas fa-heart"></i>خدمات ازدواج
-                            </a></li>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Home/RealEstateDocuments"><i class="fas fa-building"></i> اسناد املاک</a></li>
+                            <li><a class="dropdown-item" href="/Home/LegalDocuments"><i class="fas fa-balance-scale"></i> اسناد حقوقی</a></li>
+                            <li><a class="dropdown-item" href="/Home/MarriageServices"><i class="fas fa-heart"></i> خدمات ازدواج</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/Home/Services">
-                                <i class="fas fa-list"></i>همه خدمات
-                            </a></li>
-                            </ul>
-                        </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#">
-                            <i class="fas fa-file-contract"></i>
-                            اسناد تخصصی
-                        </a>
-                            <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
-                                <i class="fas fa-key"></i>اجاره
-                            </a></li>
-                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
-                                <i class="fas fa-handshake"></i>بیع
-                            </a></li>
-                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
-                                <i class="fas fa-home"></i>رهن
-                            </a></li>
-                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
-                                <i class="fas fa-user-tie"></i>وکالت
-                            </a></li>
-                            <li><a class="dropdown-item" href="/Home/Documents?categoryId=1">
-                                <i class="fas fa-peace"></i>صلح
-                            </a></li>
-                            </ul>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Home/CostCalculator">
-                            <i class="fas fa-calculator"></i>
-                            محاسبه هزینه
-                                </a>
-                            </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Home/Documents">
-                            <i class="fas fa-download"></i>
-                            دانلود فرم‌ها
-                                </a>
-                            </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Home/AboutUs">
-                            <i class="fas fa-info-circle"></i>
-                            درباره ما
-                        </a>
-                            </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Home/Contact">
-                            <i class="fas fa-phone"></i>
-                            تماس با ما
-                        </a>
-                            </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Blog">
-                            <i class="fas fa-blog"></i>
-                            وبلاگ
-                        </a>
-                            </li>
+                            <li><a class="dropdown-item" href="/Home/Services"><i class="fas fa-list"></i> همه خدمات</a></li>
                         </ul>
-                
-                <!-- Auth Buttons -->
+                    </li>
+
+                    <!-- 📌 دراپ‌داون پویا از ViewComponent -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-file-contract"></i> اسناد تخصصی
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            @await Component.InvokeAsync("CategoryMenu")
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/CostCalculator"><i class="fas fa-calculator"></i> محاسبه هزینه</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Documents"><i class="fas fa-download"></i> دانلود فرم‌ها</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/AboutUs"><i class="fas fa-info-circle"></i> درباره ما</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Contact"><i class="fas fa-phone"></i> تماس با ما</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Blog"><i class="fas fa-blog"></i> وبلاگ</a>
+                    </li>
+
+                </ul>
+
+                <!-- 🎯 دکمه‌های ورود/ثبت‌نام -->
                 <div class="navbar-auth">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle auth-btn" data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i>
-                            ورود / ثبت نام
+                            <i class="fas fa-user"></i> ورود / ثبت نام
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end auth-dropdown">
-                            <li>
-                                <h6 class="dropdown-header">
-                                    <i class="fas fa-users"></i>
-                                    پنل کاربران
-                                </h6>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/UserPanel/Login">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    ورود کاربران
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/UserPanel/Register">
-                                    <i class="fas fa-user-plus"></i>
-                                    ثبت نام
-                                </a>
-                            </li>
+                            <li><h6 class="dropdown-header"><i class="fas fa-users"></i> پنل کاربران</h6></li>
+                            <li><a class="dropdown-item" href="/UserPanel/Login"><i class="fas fa-sign-in-alt"></i> ورود کاربران</a></li>
+                            <li><a class="dropdown-item" href="/UserPanel/Register"><i class="fas fa-user-plus"></i> ثبت نام</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <h6 class="dropdown-header">
-                                    <i class="fas fa-shield-alt"></i>
-                                    پنل مدیریت
-                                </h6>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/Admin/Account/Login">
-                                    <i class="fas fa-user-shield"></i>
-                                    ورود مدیران
-                                </a>
-                            </li>
+                            <li><h6 class="dropdown-header"><i class="fas fa-shield-alt"></i> پنل مدیریت</h6></li>
+                            <li><a class="dropdown-item" href="/Admin/Account/Login"><i class="fas fa-user-shield"></i> ورود مدیران</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+
 
     <!-- Main Content -->
     <main role="main">

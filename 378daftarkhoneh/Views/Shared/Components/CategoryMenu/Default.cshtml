@@ -1,0 +1,10 @@
+﻿@model List<_378daftarkhoneh.Models.Category>
+
+@foreach (var category in Model)
+{
+    <li>
+        <a class="dropdown-item" href="/Home/Documents?categoryId=@category.Id">
+            <i class="fas fa-angle-left me-1"></i> @category.Name
+        </a>
+    </li>
+}

@@ -39,53 +39,62 @@ namespace _378daftarkhoneh.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FileUpload fileUpload, IFormFile uploadedFile)
         {
-            if (ModelState.IsValid && uploadedFile != null)
+            if (!ModelState.IsValid || uploadedFile == null)
             {
-                // Create uploads directory if not exists
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                // Generate unique filename
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + uploadedFile.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                // Save file to disk
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-
-                // Update file information
-                fileUpload.FileName = uploadedFile.FileName;
-                fileUpload.FilePath = "/uploads/" + uniqueFileName;
-                fileUpload.FileSize = uploadedFile.Length;
-                fileUpload.FileType = uploadedFile.ContentType;
-
-                _context.Add(fileUpload);
-                await _context.SaveChangesAsync();
-                TempData["Success"] = "فایل با موفقیت آپلود شد";
-                return RedirectToAction(nameof(Index));
+                ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
+                ModelState.AddModelError("uploadedFile", "فایل الزامی است.");
+                return View(fileUpload);
             }
 
-            ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
-            return View(fileUpload);
+            if (uploadedFile.ContentType != "application/pdf")
+            {
+                ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
+                ModelState.AddModelError("uploadedFile", "فقط فایل‌های PDF مجاز هستند.");
+                return View(fileUpload);
+            }
+
+            // Save dummy to get ID
+            fileUpload.FileName = "temp";
+            fileUpload.FilePath = "temp";
+            fileUpload.FileSize = 0;
+            fileUpload.FileType = "temp";
+
+            _context.Add(fileUpload);
+            await _context.SaveChangesAsync();
+
+            string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            string extension = Path.GetExtension(uploadedFile.FileName);
+            string uniqueFileName = $"file_{fileUpload.Id}{extension}";
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await uploadedFile.CopyToAsync(fileStream);
+            }
+
+            fileUpload.FileName = uploadedFile.FileName;
+            fileUpload.FilePath = "/uploads/" + uniqueFileName;
+            fileUpload.FileSize = uploadedFile.Length;
+            fileUpload.FileType = uploadedFile.ContentType;
+
+            _context.Update(fileUpload);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "فایل با موفقیت آپلود شد";
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var fileUpload = await _context.FileUploads.FindAsync(id);
-            if (fileUpload == null)
-            {
-                return NotFound();
-            }
+            if (fileUpload == null) return NotFound();
 
             ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
             return View(fileUpload);
@@ -95,73 +104,65 @@ namespace _378daftarkhoneh.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, FileUpload fileUpload, IFormFile uploadedFile)
         {
-            if (id != fileUpload.Id)
+            if (id != fileUpload.Id) return NotFound();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
+                return View(fileUpload);
             }
 
-            if (ModelState.IsValid)
+            var existingFile = await _context.FileUploads.AsNoTracking().FirstOrDefaultAsync(f => f.Id == id);
+            if (existingFile == null) return NotFound();
+
+            if (uploadedFile != null)
             {
-                try
+                if (uploadedFile.ContentType != "application/pdf")
                 {
-                    var existingFile = await _context.FileUploads.AsNoTracking().FirstOrDefaultAsync(f => f.Id == id);
-
-                    if (uploadedFile != null)
-                    {
-                        // Delete old file
-                        if (!string.IsNullOrEmpty(existingFile.FilePath))
-                        {
-                            string oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, existingFile.FilePath.TrimStart('/'));
-                            if (System.IO.File.Exists(oldFilePath))
-                            {
-                                System.IO.File.Delete(oldFilePath);
-                            }
-                        }
-
-                        // Upload new file
-                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + uploadedFile.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await uploadedFile.CopyToAsync(fileStream);
-                        }
-
-                        fileUpload.FileName = uploadedFile.FileName;
-                        fileUpload.FilePath = "/uploads/" + uniqueFileName;
-                        fileUpload.FileSize = uploadedFile.Length;
-                        fileUpload.FileType = uploadedFile.ContentType;
-                    }
-                    else
-                    {
-                        // Keep existing file information
-                        fileUpload.FileName = existingFile.FileName;
-                        fileUpload.FilePath = existingFile.FilePath;
-                        fileUpload.FileSize = existingFile.FileSize;
-                        fileUpload.FileType = existingFile.FileType;
-                    }
-
-                    _context.Update(fileUpload);
-                    await _context.SaveChangesAsync();
-                    TempData["Success"] = "فایل با موفقیت ویرایش شد";
+                    ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
+                    ModelState.AddModelError("uploadedFile", "فقط فایل‌های PDF مجاز هستند.");
+                    return View(fileUpload);
                 }
-                catch (DbUpdateConcurrencyException)
+
+                // Remove old file
+                if (!string.IsNullOrEmpty(existingFile.FilePath))
                 {
-                    if (!FileUploadExists(fileUpload.Id))
+                    string oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, existingFile.FilePath.TrimStart('/'));
+                    if (System.IO.File.Exists(oldFilePath))
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        System.IO.File.Delete(oldFilePath);
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                // Save new file
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                string extension = Path.GetExtension(uploadedFile.FileName);
+                string uniqueFileName = $"file_{fileUpload.Id}{extension}";
+                string newFilePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(newFilePath, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+
+                fileUpload.FileName = uploadedFile.FileName;
+                fileUpload.FilePath = "/uploads/" + uniqueFileName;
+                fileUpload.FileSize = uploadedFile.Length;
+                fileUpload.FileType = uploadedFile.ContentType;
+            }
+            else
+            {
+                fileUpload.FileName = existingFile.FileName;
+                fileUpload.FilePath = existingFile.FilePath;
+                fileUpload.FileSize = existingFile.FileSize;
+                fileUpload.FileType = existingFile.FileType;
             }
 
-            ViewData["CategoryId"] = new SelectList(await _context.Categories.ToListAsync(), "Id", "Name", fileUpload.CategoryId);
-            return View(fileUpload);
+            _context.Update(fileUpload);
+            await _context.SaveChangesAsync();
+            TempData["Success"] = "فایل با موفقیت ویرایش شد";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -171,7 +172,6 @@ namespace _378daftarkhoneh.Areas.Admin.Controllers
             var fileUpload = await _context.FileUploads.FindAsync(id);
             if (fileUpload != null)
             {
-                // Delete physical file
                 if (!string.IsNullOrEmpty(fileUpload.FilePath))
                 {
                     string filePath = Path.Combine(_webHostEnvironment.WebRootPath, fileUpload.FilePath.TrimStart('/'));
